@@ -13,7 +13,9 @@ class GameView extends StatelessWidget {
         backgroundColor: const Color(0xFF547436),
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      body: Container(),
+      body: Column(
+        children: const [],
+      ),
     );
   }
 }
