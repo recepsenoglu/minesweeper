@@ -30,7 +30,7 @@ class Tile {
     _visible = false;
     _hasMine = false;
     _hasFlag = false;
-    _value = 0;
+    _value = -1;
   }
 
   @override

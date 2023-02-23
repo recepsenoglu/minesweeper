@@ -1,21 +1,20 @@
-import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:minesweeper/model/tile_model.dart';
 
 class GameController extends ChangeNotifier {
+  /// The game board matrix / minefield
   final List<List<Tile>> _mineField = [];
-
   List<List<Tile>> get mineField => _mineField;
 
+  bool _gameHasStarted = false;
+
   GameController() {
-    if (_mineField.isEmpty) {
-      placeMines();
-    }
+    createGameBoard();
   }
 
-  void placeMines({int mines = 15}) {
+  void createGameBoard() {
     _mineField.clear();
     for (var i = 0; i < 10; i++) {
       _mineField.add([]);
@@ -23,10 +22,30 @@ class GameController extends ChangeNotifier {
         _mineField[i].add(Tile());
       }
     }
+  }
+
+  void placeMines(int row, int col, {int mines = 15}) {
     var rnd = Random();
     while (mines > 0) {
       var i = rnd.nextInt(10);
       var j = rnd.nextInt(10);
+
+      List<List<int>> restricted = [
+        [row - 1, col - 1],
+        [row - 1, col],
+        [row - 1, col + 1],
+        [row, col - 1],
+        [row, col],
+        [row, col + 1],
+        [row + 1, col - 1],
+        [row + 1, col],
+        [row + 1, col + 1],
+      ];
+
+      if (restricted.any((element) => element[0] == i && element[1] == j)) {
+        continue;
+      }
+
       if (!_mineField[i][j].hasMine) {
         _mineField[i][j].setMine = true;
         _mineField[i][j].setVisible = true;
@@ -41,6 +60,10 @@ class GameController extends ChangeNotifier {
   }
 
   void openTile(int row, int col) {
+    if (!_gameHasStarted) {
+      _gameHasStarted = true;
+      placeMines(row, col);
+    }
     if (row >= 0 &&
         col >= 0 &&
         row < mineField.length &&
@@ -63,8 +86,6 @@ class GameController extends ChangeNotifier {
   int checkMinesAround(int row, int col) {
     int rowLength = mineField.length;
     int colLength = mineField[0].length;
-
-    dev.log("[$row,$col]");
 
     int minesAround = 0;
 

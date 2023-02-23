@@ -119,7 +119,7 @@ class OpenedTile extends StatelessWidget {
             ? GameColors.tileLight
             : GameColors.tileDark,
       ),
-      child: tile.value != 0
+      child: tile.value > 0
           ? Text(tile.toString(),
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
