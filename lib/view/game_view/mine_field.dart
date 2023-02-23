@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minesweeper/constants/color_consts.dart';
 import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/model/tile_model.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +52,8 @@ class Grass extends StatelessWidget {
       decoration: BoxDecoration(
         color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
                 index % 2 != 0 && (index / 10).floor() % 2 != 0
-            ? const Color(0xFFB3D665)
-            : const Color(0xFFACD05E),
+            ? GameColors.grassLight
+            : GameColors.grassDark,
       ),
     );
   }
@@ -64,9 +65,13 @@ class Mine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color mineColor = GameColors.mineColors[index % 7];
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.red,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(color: mineColor),
+      child: CircleAvatar(
+        backgroundColor: GameColors.darken(mineColor),
       ),
     );
   }
