@@ -45,10 +45,18 @@ class GameController extends ChangeNotifier {
         col >= 0 &&
         row < mineField.length &&
         col < mineField[0].length) {
+      if (mineField[row][col].visible) return;
+
       int minesAround = checkMinesAround(row, col);
       mineField[row][col].setValue = minesAround;
-
       notifyListeners();
+
+      if (minesAround == 0) {
+        openTile(row + 1, col);
+        openTile(row, col + 1);
+        openTile(row, col - 1);
+        openTile(row - 1, col);
+      }
     }
   }
 
