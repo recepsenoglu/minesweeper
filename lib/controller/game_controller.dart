@@ -29,10 +29,15 @@ class GameController extends ChangeNotifier {
       var j = rnd.nextInt(10);
       if (!_mineField[i][j].hasMine) {
         _mineField[i][j].setMine = true;
-        _mineField[i][j].changeVisibility = true;
+        _mineField[i][j].setVisible = true;
         mines--;
       }
     }
+  }
+
+  void placeFlag(int row, int col, bool value) {
+    _mineField[row][col].setFlag = value;
+    notifyListeners();
   }
 
   void openTile(int row, int col) {

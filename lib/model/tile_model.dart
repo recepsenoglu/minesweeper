@@ -9,12 +9,16 @@ class Tile {
   bool get hasFlag => _hasFlag;
   int get value => _value;
 
+  set setVisible(bool value) {
+    _visible = value;
+  }
+
   set setMine(bool value) {
     _hasMine = value;
   }
 
-  set changeVisibility(bool value) {
-    _visible = value;
+  set setFlag(bool value) {
+    _hasFlag = value;
   }
 
   set setValue(int value) {

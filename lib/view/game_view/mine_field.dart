@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:minesweeper/constants/color_consts.dart';
+import 'package:minesweeper/constants/image_enums.dart';
 import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/model/tile_model.dart';
 import 'package:provider/provider.dart';
@@ -35,10 +36,12 @@ class _MineFieldState extends State<MineField> {
 
           if (currentTile.visible == false) {
             return InkWell(
-              onTap: () {
-                gameController.openTile(row, col);
-              },
-              child: Grass(index: index),
+              onTap: currentTile.hasFlag
+                  ? null
+                  : () => gameController.openTile(row, col),
+              onLongPress: () =>
+                  gameController.placeFlag(row, col, !currentTile.hasFlag),
+              child: Grass(index: index, tile: currentTile),
             );
           } else {
             if (currentTile.hasMine) {
@@ -56,17 +59,22 @@ class _MineFieldState extends State<MineField> {
 
 class Grass extends StatelessWidget {
   final int index;
-  const Grass({super.key, required this.index});
+  final Tile tile;
+  const Grass({super.key, required this.index, required this.tile});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
                 index % 2 != 0 && (index / 10).floor() % 2 != 0
             ? GameColors.grassLight
             : GameColors.grassDark,
       ),
+      child:
+          tile.hasFlag ? Image.asset(Images.bookmark.toPath) : const SizedBox(),
     );
   }
 }
