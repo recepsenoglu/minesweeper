@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minesweeper/controller/game_controller.dart';
+import 'package:minesweeper/model/tile_model.dart';
 import 'package:provider/provider.dart';
 
 class MineField extends StatefulWidget {
@@ -17,17 +18,25 @@ class _MineFieldState extends State<MineField> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<int>> mineField = Provider.of<GameController>(context).mineField;
+    List<List<Tile>> mineField = Provider.of<GameController>(context).mineField;
 
     return GridView.builder(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
         itemCount: 100,
         itemBuilder: (BuildContext context, index) {
-          if (mineField[index ~/ 10][index % 10] == 1) {
+          Tile currentTile = mineField[index ~/ 10][index % 10];
+          if (currentTile.visible == false) {
+            return InkWell(
+              onTap: () {},
+              child: Grass(index: index),
+            );
+          } else {
+            if (currentTile.hasMine) {
+              return Mine(index: index);
+            }
             return const SizedBox();
           }
-          return Grass(index: index);
         });
   }
 }
@@ -39,14 +48,26 @@ class Grass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
                 index % 2 != 0 && (index / 10).floor() % 2 != 0
             ? const Color(0xFFB3D665)
             : const Color(0xFFACD05E),
       ),
-      child: const Text(""),
+    );
+  }
+}
+
+class Mine extends StatelessWidget {
+  final int index;
+  const Mine({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.red,
+      ),
     );
   }
 }
