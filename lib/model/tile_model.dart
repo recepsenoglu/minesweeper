@@ -19,6 +19,7 @@ class Tile {
 
   set setValue(int value) {
     _value = value;
+    _visible = true;
   }
 
   Tile() {

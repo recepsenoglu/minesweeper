@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -32,5 +33,59 @@ class GameController extends ChangeNotifier {
         mines--;
       }
     }
+  }
+
+  void openTile(int row, int col) {
+    if (row >= 0 &&
+        col >= 0 &&
+        row < mineField.length &&
+        col < mineField[0].length) {
+      int minesAround = checkMinesAround(row, col);
+      mineField[row][col].setValue = minesAround;
+
+      notifyListeners();
+    }
+  }
+
+  int checkMinesAround(int row, int col) {
+    int rowLength = mineField.length;
+    int colLength = mineField[0].length;
+
+    dev.log("[$row,$col]");
+
+    int minesAround = 0;
+
+    if (row - 1 >= 0 && col - 1 >= 0 && mineField[row - 1][col - 1].hasMine) {
+      minesAround++;
+    }
+    if (row - 1 >= 0 && mineField[row - 1][col].hasMine) {
+      minesAround++;
+    }
+    if (row - 1 >= 0 &&
+        col + 1 < colLength &&
+        mineField[row - 1][col + 1].hasMine) {
+      minesAround++;
+    }
+    if (col - 1 >= 0 && mineField[row][col - 1].hasMine) {
+      minesAround++;
+    }
+    if (col + 1 < colLength && mineField[row][col + 1].hasMine) {
+      minesAround++;
+    }
+    if (row + 1 < rowLength &&
+        col - 1 >= 0 &&
+        mineField[row + 1][col - 1].hasMine) {
+      minesAround++;
+    }
+    if (row + 1 < rowLength && mineField[row + 1][col].hasMine) {
+      minesAround++;
+    }
+    if (row + 1 < rowLength &&
+        col + 1 < colLength &&
+        mineField[row + 1][col + 1].hasMine) {
+      minesAround++;
+    }
+
+    return minesAround;
   }
 }
