@@ -114,10 +114,10 @@ class OpenedTile extends StatelessWidget {
       child: tile.value != 0
           ? Text(tile.toString(),
               style: GoogleFonts.roboto(
-                textStyle: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+                textStyle: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: GameColors.valueTextColors[tile.value - 1]),
               ))
           : const SizedBox(),
     );

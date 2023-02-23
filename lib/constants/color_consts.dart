@@ -3,8 +3,18 @@ import 'package:flutter/material.dart';
 class GameColors {
   static const Color _grassLight = Color(0xFFB3D665);
   static const Color _grassDark = Color(0xFFACD05E);
+
   static const Color _tileLight = Color(0xFFDFC3A3);
   static const Color _tileDark = Color(0xFFD2B99D);
+
+  static const Color _valueText1 = Color(0xFF3874CB);
+  static const Color _valueText2 = Color(0xFF508C46);
+  static const Color _valueText3 = Color(0xFFC23F38);
+  static const Color _valueText4 = Color(0xFF71279C);
+  static const Color _valueText5 = Color(0xFFF09536);
+  static const Color _valueText6 = Color(0xFFDA893D);
+  static const Color _valueText7 = Color(0xFF000000);
+  static const Color _valueText8 = Color(0xFFFF0000);
 
   static const Color _mine1 = Color(0xFFA94FEA);
   static const Color _mine2 = Color(0xFFE58A35);
@@ -16,8 +26,20 @@ class GameColors {
 
   static Color get grassLight => _grassLight;
   static Color get grassDark => _grassDark;
+
   static Color get tileLight => _tileLight;
   static Color get tileDark => _tileDark;
+
+  static List<Color> get valueTextColors => [
+        _valueText1,
+        _valueText2,
+        _valueText3,
+        _valueText4,
+        _valueText5,
+        _valueText6,
+        _valueText7,
+        _valueText8
+      ];
 
   static List<Color> get mineColors =>
       [_mine1, _mine2, _mine3, _mine4, _mine5, _mine6, _mine7];
