@@ -1,22 +1,51 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:minesweeper/model/tile_model.dart';
+import '../constants/game_consts.dart';
+import '../model/tile_model.dart';
 
 class GameController extends ChangeNotifier {
   /// The game board matrix / minefield
   final List<List<Tile>> _mineField = [];
   List<List<Tile>> get mineField => _mineField;
 
+  /// Game difficulty setting.
+  /// This setting determines the matrix size and number of mines
+  GameMode _gameMode = GameMode.easy;
+
+  GameMode get gameMode => _gameMode;
+
+  set gameMode(GameMode mode) {
+    _gameMode = mode;
+    _boardLength = boardLength(_gameMode);
+    _mineCount = mineCount(_gameMode);
+    resetGame();
+    createGameBoard();
+  }
+
+  /// Reset game variables
+  void resetGame() {
+    _mineField.clear();
+    _flagCount = _mineCount;
+    _gameHasStarted = false;
+    _gameOver = false;
+  }
+
+  int _boardLength = 10;
+  int _mineCount = 15;
+
+  int _flagCount = 15;
+  int get flagCount => _flagCount;
+
   bool _gameHasStarted = false;
+  bool _gameOver = false;
 
   GameController() {
     createGameBoard();
   }
 
+  /// Creates empty board
   void createGameBoard() {
-    _mineField.clear();
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < _boardLength; i++) {
       _mineField.add([]);
       for (var j = 0; j < 10; j++) {
         _mineField[i].add(Tile());
@@ -24,10 +53,12 @@ class GameController extends ChangeNotifier {
     }
   }
 
-  void placeMines(int row, int col, {int mines = 15}) {
+  /// Places mines to empty game board. The number of mines depends on the game difficulty.
+  void placeMines(int row, int col) {
     var rnd = Random();
+    int mines = _mineCount;
     while (mines > 0) {
-      var i = rnd.nextInt(10);
+      var i = rnd.nextInt(_boardLength);
       var j = rnd.nextInt(10);
 
       List<List<int>> restricted = [
@@ -54,11 +85,15 @@ class GameController extends ChangeNotifier {
     }
   }
 
+  /// Remove/Add flag from/to specified tile
   void placeFlag(int row, int col, bool value) {
     _mineField[row][col].setFlag = value;
+    _flagCount += value ? 1 : -1;
     notifyListeners();
   }
 
+  /// Opens the clicked tile. Calls the [checkMinesAround] function and updates
+  /// the tile value as mine count.
   void openTile(int row, int col) {
     if (!_gameHasStarted) {
       _gameHasStarted = true;
@@ -79,10 +114,15 @@ class GameController extends ChangeNotifier {
         openTile(row, col + 1);
         openTile(row, col - 1);
         openTile(row - 1, col);
+        openTile(row - 1, col - 1);
+        openTile(row - 1, col + 1);
+        openTile(row + 1, col - 1);
+        openTile(row + 1, col + 1);
       }
     }
   }
 
+  /// Checks for surrounding mines and returns number of mines
   int checkMinesAround(int row, int col) {
     int rowLength = mineField.length;
     int colLength = mineField[0].length;
