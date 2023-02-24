@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:minesweeper/constants/game_consts.dart';
+import 'package:minesweeper/controller/game_controller.dart';
+import 'package:minesweeper/helper/functions.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/image_enums.dart';
 
@@ -16,16 +20,17 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: const Color(0xFF547436),
       systemOverlayStyle: SystemUiOverlayStyle.light,
       centerTitle: true,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
-          DifficultySettings(),
-          Spacer(),
-          Flags(),
-          SizedBox(width: 15),
-          Stopwatch(),
-          Spacer(),
-        ],
+      title: Consumer<GameController>(
+        builder: (context, GameController controller, child) => Row(
+          children: [
+            DifficultySettings(controller: controller),
+            const Spacer(),
+            Flags(flagCount: controller.flagCount),
+            const SizedBox(width: 15),
+            const Stopwatch(timeElapsed: 24),
+            const Spacer(),
+          ],
+        ),
       ),
       actions: [
         SizedBox(
@@ -56,66 +61,64 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
 }
 
 class Stopwatch extends StatelessWidget {
-  const Stopwatch({super.key});
+  final int timeElapsed;
+  const Stopwatch({super.key, required this.timeElapsed});
 
   @override
   Widget build(BuildContext context) {
-    String timePassed = "009";
     return Row(
       children: [
         Image.asset(Images.stopwatch.toPath, scale: 1.8),
         const SizedBox(width: 5),
-        Text(timePassed),
+        Text(timeElapsed.toString()),
       ],
     );
   }
 }
 
 class Flags extends StatelessWidget {
-  const Flags({super.key});
+  final int flagCount;
+  const Flags({super.key, required this.flagCount});
 
   @override
   Widget build(BuildContext context) {
-    String flagCount = "99";
     return Row(
       children: [
-        Image.asset(Images.bookmark.toPath),
-        const SizedBox(width: 5),
-        Text(flagCount),
+        Image.asset(Images.bookmark.toPath, scale: 1.1),
+        const SizedBox(width: 6),
+        Text(flagCount.toString()),
       ],
     );
   }
 }
 
-class DifficultySettings extends StatefulWidget {
-  const DifficultySettings({super.key});
-
-  @override
-  State<DifficultySettings> createState() => _DifficultySettingsState();
-}
-
-class _DifficultySettingsState extends State<DifficultySettings> {
-  String mode = 'Easy';
-  List<String> modes = ['Easy', 'Medium', 'Hard'];
+class DifficultySettings extends StatelessWidget {
+  final GameController controller;
+  const DifficultySettings({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    GameMode gameMode = controller.gameMode;
+    List<GameMode> allModes = [GameMode.easy, GameMode.medium, GameMode.hard];
+
     return Container(
       height: 36,
-      margin: const EdgeInsets.symmetric(vertical: 10).copyWith(left: 0),
+      margin: const EdgeInsets.symmetric(vertical: 10).copyWith(right: 5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Center(
-        child: DropdownButton<String>(
-          value: mode,
+        child: DropdownButton<GameMode>(
+          value: gameMode,
           isDense: true,
+          alignment: Alignment.center,
+          borderRadius: BorderRadius.circular(10),
           underline: const SizedBox(),
-          items: modes.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
+          items: allModes.map<DropdownMenuItem<GameMode>>((GameMode value) {
+            return DropdownMenuItem<GameMode>(
               value: value,
-              child: Text(" $value"),
+              child: Text(value.name.capitalizeFirst()),
             );
           }).toList(),
           style: const TextStyle(
@@ -124,9 +127,9 @@ class _DifficultySettingsState extends State<DifficultySettings> {
             fontSize: 16,
           ),
           onChanged: (value) {
-            setState(() {
-              mode = value.toString();
-            });
+            if (value != null && value != controller.gameMode) {
+              controller.gameMode = value;
+            }
           },
         ),
       ),

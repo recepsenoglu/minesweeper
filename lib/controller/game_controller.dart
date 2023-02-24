@@ -16,10 +16,11 @@ class GameController extends ChangeNotifier {
 
   set gameMode(GameMode mode) {
     _gameMode = mode;
-    _boardLength = boardLength(_gameMode);
+    _boardLength = getBoardLength(_gameMode);
     _mineCount = mineCount(_gameMode);
     resetGame();
     createGameBoard();
+    notifyListeners();
   }
 
   /// Reset game variables
@@ -31,6 +32,7 @@ class GameController extends ChangeNotifier {
   }
 
   int _boardLength = 10;
+  int get boardLength => _boardLength;
   int _mineCount = 15;
 
   int _flagCount = 15;
@@ -87,9 +89,11 @@ class GameController extends ChangeNotifier {
 
   /// Remove/Add flag from/to specified tile
   void placeFlag(int row, int col, bool value) {
-    _mineField[row][col].setFlag = value;
-    _flagCount += value ? 1 : -1;
-    notifyListeners();
+    if (!_gameOver) {
+      _mineField[row][col].setFlag = value;
+      _flagCount += value ? -1 : 1;
+      notifyListeners();
+    }
   }
 
   /// Opens the clicked tile. Calls the [checkMinesAround] function and updates
@@ -104,6 +108,7 @@ class GameController extends ChangeNotifier {
         row < mineField.length &&
         col < mineField[0].length) {
       if (mineField[row][col].visible) return;
+      if (_gameOver) return;
 
       int minesAround = checkMinesAround(row, col);
       mineField[row][col].setValue = minesAround;

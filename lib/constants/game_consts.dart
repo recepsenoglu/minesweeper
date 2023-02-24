@@ -1,6 +1,6 @@
 enum GameMode { easy, medium, hard }
 
-int boardLength(GameMode gameMode) {
+int getBoardLength(GameMode gameMode) {
   if (gameMode.name == 'easy') {
     return 10;
   } else if (gameMode.name == 'medium') {

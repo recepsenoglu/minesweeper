@@ -28,7 +28,7 @@ class _MineFieldState extends State<MineField> {
     return GridView.builder(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
-        itemCount: 100,
+        itemCount: gameController.boardLength * 10,
         itemBuilder: (BuildContext context, index) {
           int row = index ~/ 10;
           int col = index % 10;
@@ -40,6 +40,8 @@ class _MineFieldState extends State<MineField> {
                   ? null
                   : () => gameController.openTile(row, col),
               onLongPress: () =>
+                  gameController.placeFlag(row, col, !currentTile.hasFlag),
+              onDoubleTap: () =>
                   gameController.placeFlag(row, col, !currentTile.hasFlag),
               child: Grass(index: index, tile: currentTile),
             );
