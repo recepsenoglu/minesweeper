@@ -4,6 +4,8 @@ import 'package:minesweeper/constants/color_consts.dart';
 import 'package:minesweeper/constants/image_enums.dart';
 import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/model/tile_model.dart';
+import 'package:minesweeper/widgets/lose_popup.dart';
+import 'package:minesweeper/widgets/win_popup.dart';
 import 'package:provider/provider.dart';
 
 class MineField extends StatefulWidget {
@@ -35,25 +37,17 @@ class _MineFieldState extends State<MineField> {
           Tile currentTile = mineField[row][col];
 
           if (currentTile.visible == false) {
-            return InkWell(
-              onTap: currentTile.hasFlag
-                  ? null
-                  : () => gameController.openTile(row, col),
-              onLongPress: () =>
-                  gameController.placeFlag(row, col, !currentTile.hasFlag),
-              onDoubleTap: () =>
-                  gameController.placeFlag(row, col, !currentTile.hasFlag),
-              child: Grass(index: index, tile: currentTile),
-            );
+            return Grass(
+                index: index,
+                tile: currentTile,
+                row: row,
+                col: col,
+                gameController: gameController);
           } else {
             if (currentTile.hasMine) {
               return Mine(index: index);
             }
-            return OpenedTile(
-              row: row,
-              col: col,
-              tile: currentTile,
-            );
+            return OpenedTile(row: row, col: col, tile: currentTile);
           }
         });
   }
@@ -61,23 +55,46 @@ class _MineFieldState extends State<MineField> {
 
 class Grass extends StatelessWidget {
   final int index;
+  final int row;
+  final int col;
   final Tile tile;
-  const Grass({super.key, required this.index, required this.tile});
+  final GameController gameController;
+  const Grass(
+      {super.key,
+      required this.index,
+      required this.tile,
+      required this.row,
+      required this.col,
+      required this.gameController});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
-                index % 2 != 0 && (index / 10).floor() % 2 != 0
-            ? GameColors.grassLight
-            : GameColors.grassDark,
-      ),
-      child:
-          tile.hasFlag ? Image.asset(Images.bookmark.toPath) : const SizedBox(),
-    );
+    return InkWell(
+        onTap: () {
+          if (!tile.hasFlag) {
+            bool? userWon = gameController.clickTile(row, col);
+            if (userWon == true) {
+              userHasWonPopup(context, controller: gameController);
+            } else if (userWon == false) {
+              userLosePopup(context, controller: gameController);
+            }
+          }
+        },
+        onLongPress: () => gameController.placeFlag(row, col, !tile.hasFlag),
+        onDoubleTap: () => gameController.placeFlag(row, col, !tile.hasFlag),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
+                    index % 2 != 0 && (index / 10).floor() % 2 != 0
+                ? GameColors.grassLight
+                : GameColors.grassDark,
+          ),
+          child: tile.hasFlag
+              ? Image.asset(Images.bookmark.toPath)
+              : const SizedBox(),
+        ));
   }
 }
 
