@@ -27,7 +27,7 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
             const Spacer(),
             Flags(flagCount: controller.flagCount),
             const SizedBox(width: 15),
-            const Stopwatch(timeElapsed: 24),
+            Stopwatch(timeElapsed: controller.timeElapsed),
             const Spacer(),
           ],
         ),
@@ -66,11 +66,18 @@ class Stopwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // String timeElapsed = "0" * 2 + timeElapsed.toString();
+
     return Row(
       children: [
         Image.asset(Images.stopwatch.toPath, scale: 1.8),
         const SizedBox(width: 5),
-        Text(timeElapsed.toString()),
+        Container(
+          alignment: Alignment.centerLeft,
+          width: 42,
+          child: Text("0" * (3 - timeElapsed.toString().length) +
+              timeElapsed.toString()),
+        ),
       ],
     );
   }

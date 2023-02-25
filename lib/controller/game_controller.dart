@@ -1,9 +1,14 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../constants/game_consts.dart';
 import '../model/tile_model.dart';
 
 class GameController extends ChangeNotifier {
+  GameController() {
+    _createGameBoard();
+  }
+
   /// The game board matrix / minefield
   final List<List<Tile>> _mineField = [];
   List<List<Tile>> get mineField => _mineField;
@@ -17,6 +22,9 @@ class GameController extends ChangeNotifier {
   int _mineCount = 15;
   int _openedTileCount = 0;
 
+  int _timeElapsed = 0;
+  int get timeElapsed => _timeElapsed;
+
   bool _gameHasStarted = false;
   bool _gameOver = false;
 
@@ -26,38 +34,55 @@ class GameController extends ChangeNotifier {
 
   GameMode get gameMode => _gameMode;
 
+  /// Game mode setter
   set gameMode(GameMode mode) {
     _gameMode = mode;
     _boardLength = getBoardLength(_gameMode);
     _mineCount = mineCount(_gameMode);
+    resetGame();
     createNewGame();
   }
 
+  /// Creates a new game
   void createNewGame() {
     resetGame();
     _createGameBoard();
     notifyListeners();
   }
 
+  /// Game start function
   void startGame(int row, int col) {
     _gameHasStarted = true;
+    startTimer();
     _placeMines(row, col);
     _openTile(row, col);
   }
 
   /// Reset game variables
   void resetGame() {
+    _gameOver = true;
     _mineField.clear();
     _flagCount = _mineCount;
     _openedTileCount = 0;
     _gameHasStarted = false;
     _gameOver = false;
+    _timeElapsed = 0;
+    notifyListeners();
   }
 
-  GameController() {
-    _createGameBoard();
+  /// Starts the timer
+  void startTimer() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!_gameHasStarted || _gameOver || _timeElapsed >= 999) {
+        timer.cancel();
+        return;
+      }
+      _timeElapsed++;
+      notifyListeners();
+    });
   }
 
+  /// Win game function
   void winTheGame() {
     _gameOver = true;
     notifyListeners();
@@ -66,6 +91,7 @@ class GameController extends ChangeNotifier {
     });
   }
 
+  /// Lose game function
   void loseTheGame() {
     _gameOver = true;
     showAllMines();
