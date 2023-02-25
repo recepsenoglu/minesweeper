@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:minesweeper/constants/game_consts.dart';
 import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/helper/functions.dart';
+import 'package:minesweeper/widgets/exit_popup.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/image_enums.dart';
@@ -29,33 +30,32 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
             const SizedBox(width: 15),
             Stopwatch(timeElapsed: controller.timeElapsed),
             const Spacer(),
+            SizedBox(
+              width: 25,
+              child: IconButton(
+                visualDensity: VisualDensity.compact,
+                icon: const Icon(Icons.volume_up),
+                padding: EdgeInsets.zero,
+                splashRadius: 20,
+                iconSize: 30,
+                onPressed: () {},
+              ),
+            ),
+            const SizedBox(width: 5),
+            SizedBox(
+              width: 25,
+              child: IconButton(
+                visualDensity: VisualDensity.compact,
+                icon: const Icon(Icons.close),
+                padding: EdgeInsets.zero,
+                splashRadius: 20,
+                iconSize: 30,
+                onPressed: () => exitPopup(context),
+              ),
+            ),
           ],
         ),
       ),
-      actions: [
-        SizedBox(
-          width: 40,
-          child: IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.volume_up),
-            padding: EdgeInsets.zero,
-            splashRadius: 25,
-            iconSize: 35,
-            onPressed: () {},
-          ),
-        ),
-        SizedBox(
-          width: 50,
-          child: IconButton(
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.close),
-            padding: EdgeInsets.zero,
-            splashRadius: 25,
-            iconSize: 35,
-            onPressed: () {},
-          ),
-        ),
-      ],
     );
   }
 }
@@ -66,8 +66,6 @@ class Stopwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String timeElapsed = "0" * 2 + timeElapsed.toString();
-
     return Row(
       children: [
         Image.asset(Images.stopwatch.toPath, scale: 1.8),

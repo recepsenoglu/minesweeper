@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
-import '../controller/game_controller.dart';
+import 'dart:io';
 
-userLosePopup(BuildContext context, {required GameController controller}) {
+import 'package:flutter/material.dart';
+
+exitPopup(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) => AlertDialog(
       title: const Text(
-        "You lost!",
+        "Do you want to exit?",
       ),
       actions: [
         Row(
@@ -16,9 +17,9 @@ userLosePopup(BuildContext context, {required GameController controller}) {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                controller.createNewGame();
+                exit(0);
               },
-              child: const Text("Play Again"),
+              child: const Text("Exit"),
             ),
           ],
         )
