@@ -70,11 +70,33 @@ class Grass extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
-                    tile.row % 2 != 0 && tile.col % 2 != 0
-                ? GameColors.grassLight
-                : GameColors.grassDark,
-          ),
+              color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
+                      tile.row % 2 != 0 && tile.col % 2 != 0
+                  ? GameColors.grassLight
+                  : GameColors.grassDark,
+              border: Border(
+                left: BorderSide(
+                  width: 3,
+                  color: GameColors.tileBorder,
+                  style: tile.ltrb[0] ? BorderStyle.solid : BorderStyle.none,
+                ),
+                top: BorderSide(
+                  width: 3,
+                  color: GameColors.tileBorder,
+                  style: tile.ltrb[1] ? BorderStyle.solid : BorderStyle.none,
+                ),
+                right: BorderSide(
+                  width: 3,
+                  color: GameColors.tileBorder,
+                  style: tile.ltrb[2] ? BorderStyle.solid : BorderStyle.none,
+                  
+                ),
+                bottom: BorderSide(
+                  width: 3,
+                  color: GameColors.tileBorder,
+                  style: tile.ltrb[3] ? BorderStyle.solid : BorderStyle.none,
+                ),
+              )),
           child: tile.hasFlag
               ? Image.asset(Images.bookmark.toPath)
               : const SizedBox(),

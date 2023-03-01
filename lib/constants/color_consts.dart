@@ -7,6 +7,8 @@ class GameColors {
   static const Color _tileLight = Color(0xFFDFC3A3);
   static const Color _tileDark = Color(0xFFD2B99D);
 
+  static const Color _tileBorder = Color(0xFF8FAE4D);
+
   static const Color _valueText1 = Color(0xFF3874CB);
   static const Color _valueText2 = Color(0xFF508C46);
   static const Color _valueText3 = Color(0xFFC23F38);
@@ -29,6 +31,8 @@ class GameColors {
 
   static Color get tileLight => _tileLight;
   static Color get tileDark => _tileDark;
+
+  static Color get tileBorder => _tileBorder;
 
   static List<Color> get valueTextColors => [
         _valueText1,

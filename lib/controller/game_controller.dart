@@ -177,35 +177,34 @@ class GameController extends ChangeNotifier {
         row >= mineField.length ||
         col >= mineField[0].length) return null;
     if (mineField[row][col].visible) return null;
-
     if (mineField[row][col].hasMine) {
       loseTheGame();
       return false;
-    } else {
-      _openedTileCount++;
-      int minesAround = checkMinesAround(row, col);
-      mineField[row][col].setValue = minesAround;
-      if (mineField[row][col].hasFlag) {
-        _flagCount += 1;
-      }
-
-      notifyListeners();
-
-      if (_openedTileCount + _mineCount == _boardLength * 10) {
-        winTheGame();
-        return true;
-      } else if (minesAround == 0) {
-        _openTile(row + 1, col - 1);
-        _openTile(row + 1, col);
-        _openTile(row + 1, col + 1);
-        _openTile(row, col - 1);
-        _openTile(row, col + 1);
-        _openTile(row - 1, col - 1);
-        _openTile(row - 1, col);
-        _openTile(row - 1, col + 1);
-      }
-      return null;
     }
+
+    _openedTileCount++;
+    int minesAround = checkMinesAround(row, col);
+    mineField[row][col].setValue = minesAround;
+    if (mineField[row][col].hasFlag) {
+      _flagCount += 1;
+    }
+
+    notifyListeners();
+
+    if (_openedTileCount + _mineCount == _boardLength * 10) {
+      winTheGame();
+      return true;
+    } else if (minesAround == 0) {
+      _openTile(row + 1, col - 1);
+      _openTile(row + 1, col);
+      _openTile(row + 1, col + 1);
+      _openTile(row, col - 1);
+      _openTile(row, col + 1);
+      _openTile(row - 1, col - 1);
+      _openTile(row - 1, col);
+      _openTile(row - 1, col + 1);
+    }
+    return null;
   }
 
   /// Checks for surrounding mines and returns number of mines
@@ -215,35 +214,56 @@ class GameController extends ChangeNotifier {
 
     int minesAround = 0;
 
-    if (row - 1 >= 0 && col - 1 >= 0 && mineField[row - 1][col - 1].hasMine) {
-      minesAround++;
+    if (row - 1 >= 0) {
+      // top-left
+      if (col - 1 >= 0 && mineField[row - 1][col - 1].hasMine) {
+        minesAround++;
+      } // top
+      if (mineField[row - 1][col].hasMine) {
+        minesAround++;
+      } // top-right
+      if (col + 1 < colLength && mineField[row - 1][col + 1].hasMine) {
+        minesAround++;
+      }
+
+      if (mineField[row - 1][col].visible == false) {
+        mineField[row - 1][col].addBorder = 3;
+      }
     }
-    if (row - 1 >= 0 && mineField[row - 1][col].hasMine) {
-      minesAround++;
+
+    // left
+    if (col - 1 >= 0) {
+      if (mineField[row][col - 1].hasMine) {
+        minesAround++;
+      }
+      if (mineField[row][col - 1].visible == false) {
+        mineField[row][col - 1].addBorder = 2;
+      }
     }
-    if (row - 1 >= 0 &&
-        col + 1 < colLength &&
-        mineField[row - 1][col + 1].hasMine) {
-      minesAround++;
+    // right
+    if (col + 1 < colLength) {
+      if (mineField[row][col + 1].hasMine) {
+        minesAround++;
+      }
+      if (mineField[row][col + 1].visible == false) {
+        mineField[row][col + 1].addBorder = 0;
+      }
     }
-    if (col - 1 >= 0 && mineField[row][col - 1].hasMine) {
-      minesAround++;
-    }
-    if (col + 1 < colLength && mineField[row][col + 1].hasMine) {
-      minesAround++;
-    }
-    if (row + 1 < rowLength &&
-        col - 1 >= 0 &&
-        mineField[row + 1][col - 1].hasMine) {
-      minesAround++;
-    }
-    if (row + 1 < rowLength && mineField[row + 1][col].hasMine) {
-      minesAround++;
-    }
-    if (row + 1 < rowLength &&
-        col + 1 < colLength &&
-        mineField[row + 1][col + 1].hasMine) {
-      minesAround++;
+
+    if (row + 1 < rowLength) {
+      // bottom-left
+      if (col - 1 >= 0 && mineField[row + 1][col - 1].hasMine) {
+        minesAround++;
+      } // bottom
+      if (mineField[row + 1][col].hasMine) {
+        minesAround++;
+      } // bottom-right
+      if (col + 1 < colLength && mineField[row + 1][col + 1].hasMine) {
+        minesAround++;
+      }
+      if (mineField[row + 1][col].visible == false) {
+        mineField[row + 1][col].addBorder = 1;
+      }
     }
 
     return minesAround;
