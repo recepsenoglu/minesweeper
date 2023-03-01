@@ -81,7 +81,6 @@ class Grass extends StatelessWidget {
           }
         },
         onLongPress: () => gameController.placeFlag(row, col, !tile.hasFlag),
-        onDoubleTap: () => gameController.placeFlag(row, col, !tile.hasFlag),
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(6),

@@ -31,7 +31,6 @@ class GameController extends ChangeNotifier {
   /// Game difficulty setting.
   /// This setting determines the matrix size and number of mines
   GameMode _gameMode = GameMode.easy;
-
   GameMode get gameMode => _gameMode;
 
   /// Game mode setter
@@ -86,9 +85,6 @@ class GameController extends ChangeNotifier {
   void winTheGame() {
     _gameOver = true;
     notifyListeners();
-    Future.delayed(const Duration(seconds: 2), () {
-      debugPrint("Game Over!!!");
-    });
   }
 
   /// Lose game function
@@ -96,11 +92,9 @@ class GameController extends ChangeNotifier {
     _gameOver = true;
     showAllMines();
     notifyListeners();
-    Future.delayed(const Duration(seconds: 2), () {
-      debugPrint("Game Over!!!");
-    });
   }
 
+  /// Makes all mines visible
   void showAllMines() {
     for (var r = 0; r < _boardLength; r++) {
       for (var c = 0; c < 10; c++) {
@@ -161,6 +155,7 @@ class GameController extends ChangeNotifier {
     }
   }
 
+  /// When user clicks a tile, this function calls the [_openTile] function and starts the game if it is the first move of user's
   bool? clickTile(int row, int col) {
     if (!_gameHasStarted) {
       startGame(row, col);
