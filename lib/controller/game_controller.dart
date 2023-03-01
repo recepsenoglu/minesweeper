@@ -50,11 +50,11 @@ class GameController extends ChangeNotifier {
   }
 
   /// Game start function
-  void startGame(int row, int col) {
+  void startGame(Tile tile) {
     _gameHasStarted = true;
     startTimer();
-    _placeMines(row, col);
-    _openTile(row, col);
+    _placeMines(tile);
+    _openTile(tile.row, tile.col);
   }
 
   /// Reset game variables
@@ -110,15 +110,18 @@ class GameController extends ChangeNotifier {
     for (var i = 0; i < _boardLength; i++) {
       _mineField.add([]);
       for (var j = 0; j < 10; j++) {
-        _mineField[i].add(Tile());
+        _mineField[i].add(Tile(i, j));
       }
     }
   }
 
   /// Places mines to empty game board. The number of mines depends on the game difficulty.
-  void _placeMines(int row, int col) {
+  void _placeMines(Tile tile) {
     var rnd = Random();
     int mines = _mineCount;
+    int row = tile.row;
+    int col = tile.col;
+
     while (mines > 0) {
       var i = rnd.nextInt(_boardLength);
       var j = rnd.nextInt(10);
@@ -147,20 +150,21 @@ class GameController extends ChangeNotifier {
   }
 
   /// Remove/Add flag from/to specified tile
-  void placeFlag(int row, int col, bool value) {
+  void placeFlag(Tile tile) {
     if (!_gameOver) {
-      _mineField[row][col].setFlag = value;
-      _flagCount += value ? -1 : 1;
+      bool flagValue = !tile.hasFlag;
+      _mineField[tile.row][tile.col].setFlag = flagValue;
+      _flagCount += flagValue ? -1 : 1;
       notifyListeners();
     }
   }
 
   /// When user clicks a tile, this function calls the [_openTile] function and starts the game if it is the first move of user's
-  bool? clickTile(int row, int col) {
+  bool? clickTile(Tile tile) {
     if (!_gameHasStarted) {
-      startGame(row, col);
+      startGame(tile);
     } else if (!_gameOver) {
-      return _openTile(row, col);
+      return _openTile(tile.row, tile.col);
     }
     return null;
   }

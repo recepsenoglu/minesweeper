@@ -32,47 +32,32 @@ class _MineFieldState extends State<MineField> {
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
         itemCount: gameController.boardLength * 10,
         itemBuilder: (BuildContext context, index) {
-          int row = index ~/ 10;
-          int col = index % 10;
-          Tile currentTile = mineField[row][col];
+          Tile tile = mineField[index ~/ 10][index % 10];
 
-          if (currentTile.visible == false) {
-            return Grass(
-                index: index,
-                tile: currentTile,
-                row: row,
-                col: col,
-                gameController: gameController);
+          if (tile.visible == false) {
+            return Grass(tile: tile, gameController: gameController);
           } else {
-            if (currentTile.hasMine) {
+            if (tile.hasMine) {
               return Mine(index: index);
             }
-            return OpenedTile(row: row, col: col, tile: currentTile);
+            return OpenedTile(tile: tile);
           }
         });
   }
 }
 
 class Grass extends StatelessWidget {
-  final int index;
-  final int row;
-  final int col;
   final Tile tile;
   final GameController gameController;
-  const Grass(
-      {super.key,
-      required this.index,
-      required this.tile,
-      required this.row,
-      required this.col,
-      required this.gameController});
+
+  const Grass({super.key, required this.tile, required this.gameController});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
           if (!tile.hasFlag) {
-            bool? userWon = gameController.clickTile(row, col);
+            bool? userWon = gameController.clickTile(tile);
             if (userWon == true) {
               userHasWonPopup(context, controller: gameController);
             } else if (userWon == false) {
@@ -80,13 +65,13 @@ class Grass extends StatelessWidget {
             }
           }
         },
-        onLongPress: () => gameController.placeFlag(row, col, !tile.hasFlag),
+        onLongPress: () => gameController.placeFlag(tile),
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: index % 2 == 0 && (index / 10).floor() % 2 == 0 ||
-                    index % 2 != 0 && (index / 10).floor() % 2 != 0
+            color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
+                    tile.row % 2 != 0 && tile.col % 2 != 0
                 ? GameColors.grassLight
                 : GameColors.grassDark,
           ),
@@ -99,6 +84,7 @@ class Grass extends StatelessWidget {
 
 class Mine extends StatelessWidget {
   final int index;
+
   const Mine({super.key, required this.index});
 
   @override
@@ -117,23 +103,17 @@ class Mine extends StatelessWidget {
 }
 
 class OpenedTile extends StatelessWidget {
-  final int row;
-  final int col;
   final Tile tile;
 
-  const OpenedTile({
-    super.key,
-    required this.row,
-    required this.col,
-    required this.tile,
-  });
+  const OpenedTile({super.key, required this.tile});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: row % 2 == 0 && col % 2 == 0 || row % 2 != 0 && col % 2 != 0
+        color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
+                tile.row % 2 != 0 && tile.col % 2 != 0
             ? GameColors.tileLight
             : GameColors.tileDark,
       ),
