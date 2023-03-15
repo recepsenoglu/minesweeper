@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:minesweeper/constants/audio_enums.dart';
+import 'package:minesweeper/utils/audio_player.dart';
 import '../constants/game_consts.dart';
 import '../model/tile_model.dart';
 
 class GameController extends ChangeNotifier {
+  late GameAudioPlayer _audioPlayer;
+
   GameController() {
     _createGameBoard();
+    _audioPlayer = GameAudioPlayer();
   }
 
   /// The game board matrix / minefield
@@ -161,6 +166,7 @@ class GameController extends ChangeNotifier {
 
   /// When user clicks a tile, this function calls the [_openTile] function and starts the game if it is the first move of user's
   bool? clickTile(Tile tile) {
+    _audioPlayer.playAudio(Audio.click);
     if (!_gameHasStarted) {
       startGame(tile);
     } else if (!_gameOver) {
