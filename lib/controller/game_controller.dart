@@ -161,23 +161,25 @@ class GameController extends ChangeNotifier {
       _mineField[tile.row][tile.col].setFlag = flagValue;
       _flagCount += flagValue ? -1 : 1;
       notifyListeners();
+      _audioPlayer
+          .playAudio(flagValue ? GameAudios.putFlag : GameAudios.removeFlag);
     }
   }
 
   /// When user clicks a tile, this function calls the [_openTile] function and starts the game if it is the first move of user's
   bool? clickTile(Tile tile) {
-    _audioPlayer.playAudio(Audio.click);
     if (!_gameHasStarted) {
       startGame(tile);
+      _audioPlayer.playAudio(GameAudios.clickSounds[0]);
     } else if (!_gameOver) {
-      return _openTile(tile.row, tile.col);
+      return _openTile(tile.row, tile.col, playSound: true);
     }
     return null;
   }
 
   /// Opens the clicked tile. Calls the [checkMinesAround] function and updates
   /// the tile value as mine count.
-  bool? _openTile(int row, int col) {
+  bool? _openTile(int row, int col, {bool playSound = false}) {
     if (row < 0 ||
         col < 0 ||
         row >= mineField.length ||
@@ -185,6 +187,7 @@ class GameController extends ChangeNotifier {
     if (mineField[row][col].visible) return null;
     if (mineField[row][col].hasMine) {
       loseTheGame();
+      _audioPlayer.playAudio(GameAudios.lose);
       return false;
     }
 
@@ -194,21 +197,31 @@ class GameController extends ChangeNotifier {
     if (mineField[row][col].hasFlag) {
       _flagCount += 1;
     }
-
     notifyListeners();
 
     if (_openedTileCount + _mineCount == _boardLength * 10) {
       winTheGame();
+      _audioPlayer.playAudio(GameAudios.lastHit).then((value) => Future.delayed(
+          const Duration(milliseconds: 1500),
+          () => _audioPlayer.playAudio(GameAudios.win)));
       return true;
-    } else if (minesAround == 0) {
-      _openTile(row + 1, col - 1);
-      _openTile(row + 1, col);
-      _openTile(row + 1, col + 1);
-      _openTile(row, col - 1);
-      _openTile(row, col + 1);
-      _openTile(row - 1, col - 1);
-      _openTile(row - 1, col);
-      _openTile(row - 1, col + 1);
+    } else {
+      if (playSound) {
+        _audioPlayer.playAudio(GameAudios.clickSounds[
+            minesAround > GameAudios.clickSounds.length
+                ? GameAudios.clickSounds.last.index
+                : minesAround]);
+      }
+      if (minesAround == 0) {
+        _openTile(row + 1, col - 1);
+        _openTile(row + 1, col);
+        _openTile(row + 1, col + 1);
+        _openTile(row, col - 1);
+        _openTile(row, col + 1);
+        _openTile(row - 1, col - 1);
+        _openTile(row - 1, col);
+        _openTile(row - 1, col + 1);
+      }
     }
     return null;
   }

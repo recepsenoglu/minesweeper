@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../controller/game_controller.dart';
+import '../utils/audio_player.dart';
 
 userLosePopup(BuildContext context, {required GameController controller}) {
   const String title = "You lost!";
@@ -14,6 +15,7 @@ userLosePopup(BuildContext context, {required GameController controller}) {
       actions: [
         TextButton(
           onPressed: () {
+            GameAudioPlayer.pause();
             Navigator.pop(context);
             controller.createNewGame();
           },
@@ -21,6 +23,7 @@ userLosePopup(BuildContext context, {required GameController controller}) {
         ),
         TextButton(
           onPressed: () {
+            GameAudioPlayer.dispose();
             Navigator.pop(context);
             exit(0);
           },
