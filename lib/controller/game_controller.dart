@@ -10,8 +10,8 @@ class GameController extends ChangeNotifier {
   late GameAudioPlayer _audioPlayer;
 
   GameController() {
-    _createGameBoard();
     _audioPlayer = GameAudioPlayer();
+    _createGameBoard();
   }
 
   /// The game board matrix / minefield
@@ -33,6 +33,15 @@ class GameController extends ChangeNotifier {
   bool _gameHasStarted = false;
   bool _gameOver = false;
   bool _mineOpeningAnimationOn = false;
+
+  bool _soundOn = true;
+  bool get soundOn => _soundOn;
+
+  set changeSoundSetting(bool value) {
+    _soundOn = value;
+    _audioPlayer.setVolume(_soundOn);
+    notifyListeners();
+  }
 
   /// Game difficulty setting.
   /// This setting determines the matrix size and number of mines

@@ -17,6 +17,10 @@ class GameAudioPlayer {
     _player.pause();
   }
 
+  Future<void> setVolume(bool soundOn) async{
+    await _player.setVolume(soundOn ? 1 : 0);
+  }
+
   Future<bool> _setAudio(String audioPath) async {
     try {
       await _player.setAudioSource(

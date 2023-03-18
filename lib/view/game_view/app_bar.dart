@@ -34,11 +34,15 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
               width: 25,
               child: IconButton(
                 visualDensity: VisualDensity.compact,
-                icon: const Icon(Icons.volume_up),
+                icon: Icon(controller.soundOn
+                    ? Icons.volume_up
+                    : Icons.volume_off_sharp),
                 padding: EdgeInsets.zero,
                 splashRadius: 20,
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  controller.changeSoundSetting = !controller.soundOn;
+                },
               ),
             ),
             const SizedBox(width: 5),
