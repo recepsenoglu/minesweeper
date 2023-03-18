@@ -17,12 +17,12 @@ class GameAudioPlayer {
     _player.pause();
   }
 
-
   Future<bool> _setAudio(String audioPath) async {
     try {
       await _player.setAudioSource(
         AudioSource.asset(audioPath),
       );
+      _player.setLoopMode(LoopMode.off);
       return true;
     } catch (e) {
       debugPrint("Error loading audio source: $e");
@@ -30,8 +30,11 @@ class GameAudioPlayer {
     return false;
   }
 
-  Future<void> playAudio(Audio audio) async {
+  Future<void> playAudio(Audio audio, {bool loop = false}) async {
     if (await _setAudio(audio.toPath)) {
+      if (loop) {
+        _player.setLoopMode(LoopMode.one);
+      }
       _player.play();
     }
   }

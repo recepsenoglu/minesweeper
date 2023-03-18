@@ -167,19 +167,19 @@ class GameController extends ChangeNotifier {
   }
 
   /// When user clicks a tile, this function calls the [_openTile] function and starts the game if it is the first move of user's
-  bool? clickTile(Tile tile) {
+  Future<bool?>? clickTile(Tile tile) async {
     if (!_gameHasStarted) {
       startGame(tile);
       _audioPlayer.playAudio(GameAudios.clickSounds[0]);
     } else if (!_gameOver) {
-      return _openTile(tile.row, tile.col, playSound: true);
+      return await _openTile(tile.row, tile.col, playSound: true);
     }
     return null;
   }
 
   /// Opens the clicked tile. Calls the [checkMinesAround] function and updates
   /// the tile value as mine count.
-  bool? _openTile(int row, int col, {bool playSound = false}) {
+  Future<bool?>? _openTile(int row, int col, {bool playSound = false}) async {
     if (row < 0 ||
         col < 0 ||
         row >= mineField.length ||
@@ -187,7 +187,7 @@ class GameController extends ChangeNotifier {
     if (mineField[row][col].visible) return null;
     if (mineField[row][col].hasMine) {
       loseTheGame();
-      _audioPlayer.playAudio(GameAudios.lose);
+      _audioPlayer.playAudio(GameAudios.lose, loop: true);
       return false;
     }
 
@@ -201,9 +201,10 @@ class GameController extends ChangeNotifier {
 
     if (_openedTileCount + _mineCount == _boardLength * 10) {
       winTheGame();
-      _audioPlayer.playAudio(GameAudios.lastHit).then((value) => Future.delayed(
-          const Duration(milliseconds: 1500),
-          () => _audioPlayer.playAudio(GameAudios.win)));
+      _audioPlayer.playAudio(GameAudios.lastHit).then(
+            (value) => Future.delayed(const Duration(milliseconds: 1500),
+                () => _audioPlayer.playAudio(GameAudios.win, loop: true)),
+          );
       return true;
     } else {
       if (playSound) {

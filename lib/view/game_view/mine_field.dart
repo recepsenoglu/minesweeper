@@ -35,7 +35,11 @@ class _MineFieldState extends State<MineField> {
           Tile tile = mineField[index ~/ 10][index % 10];
 
           if (tile.visible == false) {
-            return Grass(tile: tile, gameController: gameController);
+            return Grass(
+              parentContext: context,
+              gameController: gameController,
+              tile: tile,
+            );
           } else {
             if (tile.hasMine) {
               return Mine(index: index);
@@ -47,21 +51,33 @@ class _MineFieldState extends State<MineField> {
 }
 
 class Grass extends StatelessWidget {
+  final BuildContext parentContext;
   final Tile tile;
   final GameController gameController;
 
-  const Grass({super.key, required this.tile, required this.gameController});
+  const Grass(
+      {super.key,
+      required this.parentContext,
+      required this.tile,
+      required this.gameController});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
+        onTap: () async {
           if (!tile.hasFlag) {
-            bool? userWon = gameController.clickTile(tile);
-            if (userWon == true) {
-              showWinScreen(context, controller: gameController);
-            } else if (userWon == false) {
-              showLoseScreen(context, controller: gameController);
+            bool? userWon = await gameController.clickTile(tile);
+
+            if (userWon != null) {
+              if (context.mounted) {
+                userWon
+                    ? showWinScreen(context, controller: gameController)
+                    : showLoseScreen(context, controller: gameController);
+              } else {
+                userWon
+                    ? showWinScreen(parentContext, controller: gameController)
+                    : showLoseScreen(parentContext, controller: gameController);
+              }
             }
           }
         },
