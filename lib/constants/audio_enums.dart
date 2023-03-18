@@ -9,7 +9,6 @@ enum Audio {
   clickTwo,
   clickThree,
   clickFour,
-  orange,
   blue,
   pink,
   purple,
@@ -31,7 +30,6 @@ class GameAudios {
   static const Audio _clickThree = Audio.clickThree;
   static const Audio _clickFour = Audio.clickFour;
 
-  static const Audio _orange = Audio.orange;
   static const Audio _blue = Audio.blue;
   static const Audio _pink = Audio.pink;
   static const Audio _purple = Audio.purple;
@@ -45,5 +43,5 @@ class GameAudios {
   static List<Audio> get clickSounds =>
       [_clickEmpty, _clickOne, _clickTwo, _clickThree, _clickFour];
 
-  static List<Audio> get mineSound => [_orange, _blue, _pink, _purple];
+  static List<Audio> get mineSound => [_purple, _blue, _pink];
 }

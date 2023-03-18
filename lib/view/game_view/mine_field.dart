@@ -36,9 +36,9 @@ class _MineFieldState extends State<MineField> {
 
           if (tile.visible == false) {
             return Grass(
+              tile: tile,
               parentContext: context,
               gameController: gameController,
-              tile: tile,
             );
           } else {
             if (tile.hasMine) {
@@ -51,8 +51,8 @@ class _MineFieldState extends State<MineField> {
 }
 
 class Grass extends StatelessWidget {
-  final BuildContext parentContext;
   final Tile tile;
+  final BuildContext parentContext;
   final GameController gameController;
 
   const Grass(

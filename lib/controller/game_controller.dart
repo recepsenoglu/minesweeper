@@ -72,6 +72,7 @@ class GameController extends ChangeNotifier {
     _gameOver = false;
     _timeElapsed = 0;
     notifyListeners();
+    GameAudioPlayer.pause();
   }
 
   /// Starts the timer
@@ -87,24 +88,35 @@ class GameController extends ChangeNotifier {
   }
 
   /// Win game function
-  void winTheGame() {
+  Future<void> winTheGame() async {
     _gameOver = true;
     notifyListeners();
+
+    _audioPlayer.playAudio(GameAudios.lastHit);
+    await Future.delayed(const Duration(milliseconds: 1500), () {
+      _audioPlayer.playAudio(GameAudios.win, loop: true);
+    });
   }
 
   /// Lose game function
-  void loseTheGame() {
+  Future<void> loseTheGame() async {
     _gameOver = true;
-    showAllMines();
     notifyListeners();
+    await showAllMines();
+    _audioPlayer.playAudio(GameAudios.lose, loop: true);
   }
 
   /// Makes all mines visible
-  void showAllMines() {
+  Future<void> showAllMines() async {
+    var rnd = Random();
+    await Future.delayed(const Duration(milliseconds: 300));
     for (var r = 0; r < _boardLength; r++) {
       for (var c = 0; c < 10; c++) {
         if (mineField[r][c].hasMine && !mineField[r][c].hasFlag) {
           mineField[r][c].setVisible = true;
+          notifyListeners();
+          await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
+          await Future.delayed(const Duration(milliseconds: 300));
         }
       }
     }
@@ -186,8 +198,9 @@ class GameController extends ChangeNotifier {
         col >= mineField[0].length) return null;
     if (mineField[row][col].visible) return null;
     if (mineField[row][col].hasMine) {
-      loseTheGame();
-      _audioPlayer.playAudio(GameAudios.lose, loop: true);
+      mineField[row][col].setVisible = true;
+      _audioPlayer.playAudio(GameAudios.mineSound[0]);
+      await loseTheGame();
       return false;
     }
 
@@ -200,11 +213,7 @@ class GameController extends ChangeNotifier {
     notifyListeners();
 
     if (_openedTileCount + _mineCount == _boardLength * 10) {
-      winTheGame();
-      _audioPlayer.playAudio(GameAudios.lastHit).then(
-            (value) => Future.delayed(const Duration(milliseconds: 1500),
-                () => _audioPlayer.playAudio(GameAudios.win, loop: true)),
-          );
+      await winTheGame();
       return true;
     } else {
       if (playSound) {
