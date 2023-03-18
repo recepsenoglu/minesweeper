@@ -32,6 +32,7 @@ class GameController extends ChangeNotifier {
 
   bool _gameHasStarted = false;
   bool _gameOver = false;
+  bool _mineOpeningAnimationOn = false;
 
   /// Game difficulty setting.
   /// This setting determines the matrix size and number of mines
@@ -110,16 +111,21 @@ class GameController extends ChangeNotifier {
   Future<void> showAllMines() async {
     var rnd = Random();
     await Future.delayed(const Duration(milliseconds: 300));
+    _mineOpeningAnimationOn = true;
     for (var r = 0; r < _boardLength; r++) {
       for (var c = 0; c < 10; c++) {
         if (mineField[r][c].hasMine && !mineField[r][c].hasFlag) {
           mineField[r][c].setVisible = true;
-          notifyListeners();
-          await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
-          await Future.delayed(const Duration(milliseconds: 300));
+          if (_mineOpeningAnimationOn) {
+            notifyListeners();
+            await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
+            await Future.delayed(const Duration(milliseconds: 300));
+          }
         }
       }
     }
+    _mineOpeningAnimationOn = false;
+    notifyListeners();
   }
 
   /// Creates empty board
@@ -185,6 +191,8 @@ class GameController extends ChangeNotifier {
       _audioPlayer.playAudio(GameAudios.clickSounds[0]);
     } else if (!_gameOver) {
       return await _openTile(tile.row, tile.col, playSound: true);
+    } else if (_mineOpeningAnimationOn) {
+      _mineOpeningAnimationOn = false;
     }
     return null;
   }
