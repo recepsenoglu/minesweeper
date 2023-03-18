@@ -208,8 +208,8 @@ class GameController extends ChangeNotifier {
     } else {
       if (playSound) {
         _audioPlayer.playAudio(GameAudios.clickSounds[
-            minesAround > GameAudios.clickSounds.length
-                ? GameAudios.clickSounds.last.index
+            minesAround >= GameAudios.clickSounds.length
+                ? GameAudios.clickSounds.length - 1
                 : minesAround]);
       }
       if (minesAround == 0) {

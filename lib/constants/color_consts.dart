@@ -9,6 +9,9 @@ class GameColors {
 
   static const Color _tileBorder = Color(0xFF8FAE4D);
 
+  static const Color _popupBackground = Color(0xFF4AC0FD);
+  static const Color _popupPlayAgainButton = Color(0xFF547436);
+
   static const Color _valueText1 = Color(0xFF3874CB);
   static const Color _valueText2 = Color(0xFF508C46);
   static const Color _valueText3 = Color(0xFFC23F38);
@@ -33,6 +36,9 @@ class GameColors {
   static Color get tileDark => _tileDark;
 
   static Color get tileBorder => _tileBorder;
+
+  static Color get popupBackground => _popupBackground;
+  static Color get popupPlayAgainButton => _popupPlayAgainButton;
 
   static List<Color> get valueTextColors => [
         _valueText1,

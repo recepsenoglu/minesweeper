@@ -59,9 +59,9 @@ class Grass extends StatelessWidget {
           if (!tile.hasFlag) {
             bool? userWon = gameController.clickTile(tile);
             if (userWon == true) {
-              userHasWonPopup(context, controller: gameController);
+              showWinScreen(context, controller: gameController);
             } else if (userWon == false) {
-              userLosePopup(context, controller: gameController);
+              showLoseScreen(context, controller: gameController);
             }
           }
         },
@@ -89,7 +89,6 @@ class Grass extends StatelessWidget {
                   width: 3,
                   color: GameColors.tileBorder,
                   style: tile.ltrb[2] ? BorderStyle.solid : BorderStyle.none,
-                  
                 ),
                 bottom: BorderSide(
                   width: 3,
