@@ -8,7 +8,7 @@ class PlayAgainButton extends StatelessWidget {
   final GameController controller;
   final bool userWon;
   const PlayAgainButton(
-      {super.key, required this.controller, this.userWon = true});
+      {super.key, required this.controller, required this.userWon});
 
   @override
   Widget build(BuildContext context) {

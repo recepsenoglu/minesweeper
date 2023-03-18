@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:minesweeper/constants/game_consts.dart';
-import 'package:minesweeper/controller/game_controller.dart';
-import 'package:minesweeper/helper/functions.dart';
-import 'package:minesweeper/widgets/exit_popup.dart';
+import 'package:minesweeper/widgets/game_popup_screen.dart';
+import '../../constants/game_consts.dart';
+import '../../controller/game_controller.dart';
+import '../../helper/functions.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/image_enums.dart';
@@ -50,7 +50,7 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
                 padding: EdgeInsets.zero,
                 splashRadius: 20,
                 iconSize: 30,
-                onPressed: () => exitPopup(context),
+                onPressed: () => GamePopupScreen.exitGame(context),
               ),
             ),
           ],

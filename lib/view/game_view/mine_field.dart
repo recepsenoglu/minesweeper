@@ -4,9 +4,9 @@ import 'package:minesweeper/constants/color_consts.dart';
 import 'package:minesweeper/constants/image_enums.dart';
 import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/model/tile_model.dart';
-import 'package:minesweeper/widgets/lose_popup.dart';
-import 'package:minesweeper/widgets/win_popup.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/game_popup_screen.dart';
 
 class MineField extends StatefulWidget {
   const MineField({super.key});
@@ -70,13 +70,11 @@ class Grass extends StatelessWidget {
 
             if (userWon != null) {
               if (context.mounted) {
-                userWon
-                    ? showWinScreen(context, controller: gameController)
-                    : showLoseScreen(context, controller: gameController);
+                GamePopupScreen.gameOver(context,
+                    controller: gameController, win: userWon);
               } else {
-                userWon
-                    ? showWinScreen(parentContext, controller: gameController)
-                    : showLoseScreen(parentContext, controller: gameController);
+                GamePopupScreen.gameOver(parentContext,
+                    controller: gameController, win: userWon);
               }
             }
           }
