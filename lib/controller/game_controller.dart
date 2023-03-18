@@ -36,12 +36,14 @@ class GameController extends ChangeNotifier {
   bool _gameOver = false;
   bool _mineOpeningAnimationOn = false;
 
-  bool _soundOn = true;
-  bool get soundOn => _soundOn;
+  bool _volumeOn = true;
+  /// Volume setting (on/off)
+  bool get volumeOn => _volumeOn;
 
-  set changeSoundSetting(bool value) {
-    _soundOn = value;
-    GameAudioPlayer.setVolume(_soundOn);
+  /// Volume setting setter
+  set changeVolumeSetting(bool value) {
+    _volumeOn = value;
+    GameAudioPlayer.setVolume(_volumeOn);
     notifyListeners();
   }
 
@@ -59,35 +61,7 @@ class GameController extends ChangeNotifier {
     createNewGame();
   }
 
-  /// Creates a new game
-  void createNewGame() {
-    resetGame();
-    _createGameBoard();
-    notifyListeners();
-  }
-
-  /// Game start function
-  void startGame(Tile tile) {
-    _gameHasStarted = true;
-    startTimer();
-    _placeMines(tile);
-    _openTile(tile.row, tile.col, playSound: true);
-  }
-
-  /// Reset game variables
-  void resetGame() {
-    _gameOver = true;
-    _mineField.clear();
-    _flagCount = _mineCount;
-    _openedTileCount = 0;
-    _gameHasStarted = false;
-    _gameOver = false;
-    _timeElapsed = 0;
-    GameAudioPlayer.playable = true;
-    notifyListeners();
-  }
-
-  /// Starts the timer
+    /// Starts the timer
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!_gameHasStarted || _gameOver || _timeElapsed >= 999) {
@@ -97,25 +71,6 @@ class GameController extends ChangeNotifier {
       _timeElapsed++;
       notifyListeners();
     });
-  }
-
-  /// Win game function
-  Future<void> winTheGame() async {
-    _gameOver = true;
-    notifyListeners();
-
-    _audioPlayer.playAudio(GameAudios.lastHit);
-    await Future.delayed(const Duration(milliseconds: 1500), () {
-      _audioPlayer.playAudio(GameAudios.win, loop: true);
-    });
-  }
-
-  /// Lose game function
-  Future<void> loseTheGame() async {
-    _gameOver = true;
-    notifyListeners();
-    await showAllMines();
-    _audioPlayer.playAudio(GameAudios.lose, loop: true);
   }
 
   /// Makes all mines visible
@@ -147,6 +102,53 @@ class GameController extends ChangeNotifier {
         _mineField[i].add(Tile(i, j));
       }
     }
+  }
+
+  /// Creates a new game
+  void createNewGame() {
+    resetGame();
+    _createGameBoard();
+    notifyListeners();
+  }
+
+  /// Game start function
+  void startGame(Tile tile) {
+    _gameHasStarted = true;
+    startTimer();
+    _placeMines(tile);
+    _openTile(tile.row, tile.col, playSound: true);
+  }
+
+  /// Reset game variables
+  void resetGame() {
+    _gameOver = true;
+    _mineField.clear();
+    _flagCount = _mineCount;
+    _openedTileCount = 0;
+    _gameHasStarted = false;
+    _gameOver = false;
+    _timeElapsed = 0;
+    GameAudioPlayer.playable = true;
+    notifyListeners();
+  }
+
+  /// Win game function
+  Future<void> winTheGame() async {
+    _gameOver = true;
+    notifyListeners();
+
+    _audioPlayer.playAudio(GameAudios.lastHit);
+    await Future.delayed(const Duration(milliseconds: 1500), () {
+      _audioPlayer.playAudio(GameAudios.win, loop: true);
+    });
+  }
+
+  /// Lose game function
+  Future<void> loseTheGame() async {
+    _gameOver = true;
+    notifyListeners();
+    await showAllMines();
+    _audioPlayer.playAudio(GameAudios.lose, loop: true);
   }
 
   /// Places mines to empty game board. The number of mines depends on the game difficulty.

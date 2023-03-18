@@ -12,8 +12,6 @@ class GameAudioPlayer {
     playable = true;
   }
 
-  // bool get isPaused => _player.
-
   static void dispose() {
     _player.dispose();
   }
