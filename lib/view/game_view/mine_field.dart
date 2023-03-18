@@ -42,7 +42,7 @@ class _MineFieldState extends State<MineField> {
             );
           } else {
             if (tile.hasMine) {
-              return Mine(index: index);
+              return Mine(index: index, tile: tile);
             }
             return OpenedTile(tile: tile);
           }
@@ -86,32 +86,12 @@ class Grass extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-              color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
-                      tile.row % 2 != 0 && tile.col % 2 != 0
-                  ? GameColors.grassLight
-                  : GameColors.grassDark,
-              border: Border(
-                left: BorderSide(
-                  width: 3,
-                  color: GameColors.tileBorder,
-                  style: tile.ltrb[0] ? BorderStyle.solid : BorderStyle.none,
-                ),
-                top: BorderSide(
-                  width: 3,
-                  color: GameColors.tileBorder,
-                  style: tile.ltrb[1] ? BorderStyle.solid : BorderStyle.none,
-                ),
-                right: BorderSide(
-                  width: 3,
-                  color: GameColors.tileBorder,
-                  style: tile.ltrb[2] ? BorderStyle.solid : BorderStyle.none,
-                ),
-                bottom: BorderSide(
-                  width: 3,
-                  color: GameColors.tileBorder,
-                  style: tile.ltrb[3] ? BorderStyle.solid : BorderStyle.none,
-                ),
-              )),
+            color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
+                    tile.row % 2 != 0 && tile.col % 2 != 0
+                ? GameColors.grassLight
+                : GameColors.grassDark,
+            border: tileBorder(tile),
+          ),
           child: tile.hasFlag
               ? Image.asset(Images.bookmark.toPath)
               : const SizedBox(),
@@ -121,8 +101,9 @@ class Grass extends StatelessWidget {
 
 class Mine extends StatelessWidget {
   final int index;
+  final Tile tile;
 
-  const Mine({super.key, required this.index});
+  const Mine({super.key, required this.index, required this.tile});
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +112,10 @@ class Mine extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(color: mineColor),
+      decoration: BoxDecoration(
+        color: mineColor,
+        border: tileBorder(tile),
+      ),
       child: CircleAvatar(
         backgroundColor: GameColors.darken(mineColor),
       ),
@@ -165,4 +149,29 @@ class OpenedTile extends StatelessWidget {
           : const SizedBox(),
     );
   }
+}
+
+BoxBorder tileBorder(Tile tile) {
+  return Border(
+    left: BorderSide(
+      width: 3,
+      color: GameColors.tileBorder,
+      style: tile.ltrb[0] ? BorderStyle.solid : BorderStyle.none,
+    ),
+    top: BorderSide(
+      width: 3,
+      color: GameColors.tileBorder,
+      style: tile.ltrb[1] ? BorderStyle.solid : BorderStyle.none,
+    ),
+    right: BorderSide(
+      width: 3,
+      color: GameColors.tileBorder,
+      style: tile.ltrb[2] ? BorderStyle.solid : BorderStyle.none,
+    ),
+    bottom: BorderSide(
+      width: 3,
+      color: GameColors.tileBorder,
+      style: tile.ltrb[3] ? BorderStyle.solid : BorderStyle.none,
+    ),
+  );
 }
