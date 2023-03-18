@@ -6,6 +6,7 @@ import 'package:minesweeper/controller/game_controller.dart';
 import 'package:minesweeper/model/tile_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../helper/shared_helper.dart';
 import '../../widgets/game_popup_screen.dart';
 
 class MineField extends StatefulWidget {
@@ -69,12 +70,30 @@ class Grass extends StatelessWidget {
             bool? userWon = await gameController.clickTile(tile);
 
             if (userWon != null) {
+              final sharedHelper = SharedHelper();
+              int? timeRecord =
+                  await sharedHelper.getRecord(gameController.gameMode);
+
+              if (userWon && gameController.timeElapsed < (timeRecord ?? 999)) {
+                await sharedHelper.setRecord(
+                    gameController.gameMode, gameController.timeElapsed);
+                timeRecord = gameController.timeElapsed;
+              }
+
               if (context.mounted) {
-                GamePopupScreen.gameOver(context,
-                    controller: gameController, win: userWon);
+                GamePopupScreen.gameOver(
+                  context,
+                  win: userWon,
+                  timeRecord: timeRecord,
+                  controller: gameController,
+                );
               } else {
-                GamePopupScreen.gameOver(parentContext,
-                    controller: gameController, win: userWon);
+                GamePopupScreen.gameOver(
+                  parentContext,
+                  win: userWon,
+                  timeRecord: timeRecord,
+                  controller: gameController,
+                );
               }
             }
           }

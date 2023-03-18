@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:minesweeper/helper/shared_helper.dart';
 import '../controller/game_controller.dart';
 import '../constants/color_consts.dart';
 import '../constants/image_enums.dart';
@@ -8,12 +9,21 @@ import 'play_again_button.dart';
 class GamePopupScreen {
   GamePopupScreen(_);
 
-  static void gameOver(BuildContext context,
-      {required GameController controller, required bool win}) {
+  static Future<void> gameOver(
+    BuildContext context, {
+    required GameController controller,
+    required int? timeRecord,
+    required bool win,
+  }) async {
     String time = win
         ? "0" * (3 - controller.timeElapsed.toString().length) +
             controller.timeElapsed.toString()
         : "---";
+
+    String record = timeRecord != null
+        ? "0" * (3 - timeRecord.toString().length) + timeRecord.toString()
+        : "---";
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -66,7 +76,7 @@ class GamePopupScreen {
                                   child: Image.asset(Images.trophy.toPath)),
                               const SizedBox(height: 10),
                               Text(
-                                time,
+                                record,
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 36),
                               ),
