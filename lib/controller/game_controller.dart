@@ -39,7 +39,7 @@ class GameController extends ChangeNotifier {
 
   set changeSoundSetting(bool value) {
     _soundOn = value;
-    _audioPlayer.setVolume(_soundOn);
+    GameAudioPlayer.setVolume(_soundOn);
     notifyListeners();
   }
 
@@ -69,7 +69,7 @@ class GameController extends ChangeNotifier {
     _gameHasStarted = true;
     startTimer();
     _placeMines(tile);
-    _openTile(tile.row, tile.col);
+    _openTile(tile.row, tile.col, playSound: true);
   }
 
   /// Reset game variables
@@ -81,8 +81,8 @@ class GameController extends ChangeNotifier {
     _gameHasStarted = false;
     _gameOver = false;
     _timeElapsed = 0;
+    GameAudioPlayer.playable = true;
     notifyListeners();
-    GameAudioPlayer.pause();
   }
 
   /// Starts the timer
@@ -197,7 +197,6 @@ class GameController extends ChangeNotifier {
   Future<bool?>? clickTile(Tile tile) async {
     if (!_gameHasStarted) {
       startGame(tile);
-      _audioPlayer.playAudio(GameAudios.clickSounds[0]);
     } else if (!_gameOver) {
       return await _openTile(tile.row, tile.col, playSound: true);
     } else if (_mineOpeningAnimationOn) {

@@ -4,20 +4,32 @@ import 'package:minesweeper/constants/audio_enums.dart';
 
 class GameAudioPlayer {
   static late AudioPlayer _player;
+  static bool playable = true;
 
   GameAudioPlayer() {
     _player = AudioPlayer();
+    playable = true;
   }
+
+  // bool get isPaused => _player.
 
   static void dispose() {
     _player.dispose();
   }
 
   static void pause() {
+    playable = false;
     _player.pause();
   }
 
-  Future<void> setVolume(bool soundOn) async{
+  static void resume() {
+    playable = true;
+    try {
+      _player.play();
+    } catch (e) {debugPrint(e.toString());}
+  }
+
+  static Future<void> setVolume(bool soundOn) async {
     await _player.setVolume(soundOn ? 1 : 0);
   }
 
@@ -35,7 +47,7 @@ class GameAudioPlayer {
   }
 
   Future<void> playAudio(Audio audio, {bool loop = false}) async {
-    if (await _setAudio(audio.toPath)) {
+    if (await _setAudio(audio.toPath) && playable) {
       if (loop) {
         _player.setLoopMode(LoopMode.one);
       }

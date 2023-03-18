@@ -20,13 +20,14 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    GameAudioPlayer.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed) {
+      GameAudioPlayer.resume();
+    } else {
       GameAudioPlayer.pause();
     }
     super.didChangeAppLifecycleState(state);

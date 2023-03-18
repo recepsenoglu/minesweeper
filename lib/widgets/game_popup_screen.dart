@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:minesweeper/helper/shared_helper.dart';
 import '../controller/game_controller.dart';
 import '../constants/color_consts.dart';
 import '../constants/image_enums.dart';
