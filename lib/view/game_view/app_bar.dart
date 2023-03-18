@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:minesweeper/widgets/game_popup_screen.dart';
-import '../../constants/game_consts.dart';
-import '../../controller/game_controller.dart';
-import '../../helper/functions.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/game_consts.dart';
 import '../../constants/image_enums.dart';
+import '../../controller/game_controller.dart';
+import '../../helper/functions.dart';
+import '../../widgets/game_popup_screen.dart';
 
 class GameAppBar extends StatelessWidget with PreferredSizeWidget {
   const GameAppBar({super.key});

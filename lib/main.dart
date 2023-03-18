@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/controller/game_controller.dart';
-import 'package:minesweeper/view/game_view/game_view.dart';
 import 'package:provider/provider.dart';
+
+import 'controller/game_controller.dart';
+import 'view/game_view/game_view.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<GameController>(

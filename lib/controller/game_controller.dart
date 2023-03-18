@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:minesweeper/constants/audio_enums.dart';
-import 'package:minesweeper/utils/audio_player.dart';
+
+import '../constants/audio_enums.dart';
 import '../constants/game_consts.dart';
 import '../model/tile_model.dart';
+import '../utils/audio_player.dart';
 
 class GameController extends ChangeNotifier {
   late GameAudioPlayer _audioPlayer;

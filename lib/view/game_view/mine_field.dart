@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minesweeper/constants/color_consts.dart';
-import 'package:minesweeper/constants/image_enums.dart';
-import 'package:minesweeper/controller/game_controller.dart';
-import 'package:minesweeper/model/tile_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/color_consts.dart';
+import '../../constants/image_enums.dart';
+import '../../controller/game_controller.dart';
 import '../../helper/shared_helper.dart';
+import '../../model/tile_model.dart';
 import '../../widgets/game_popup_screen.dart';
 
 class MineField extends StatefulWidget {

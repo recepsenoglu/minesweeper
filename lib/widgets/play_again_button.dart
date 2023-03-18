@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/controller/game_controller.dart';
 
 import '../constants/color_consts.dart';
+import '../controller/game_controller.dart';
 import '../utils/audio_player.dart';
 
 class PlayAgainButton extends StatelessWidget {

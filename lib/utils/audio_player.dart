@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:minesweeper/constants/audio_enums.dart';
+
+import '../constants/audio_enums.dart';
 
 class GameAudioPlayer {
   static late AudioPlayer _player;

@@ -1,5 +1,6 @@
-import 'package:minesweeper/constants/game_consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constants/game_consts.dart';
 
 class SharedHelper {
   Future<int?> getRecord(GameMode gameMode) async {

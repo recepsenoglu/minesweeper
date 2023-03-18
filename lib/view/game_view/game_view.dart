@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/utils/audio_player.dart';
-import 'package:minesweeper/view/game_view/app_bar.dart';
-import 'package:minesweeper/view/game_view/mine_field.dart';
+
+import '../../utils/audio_player.dart';
+import 'app_bar.dart';
+import 'mine_field.dart';
 
 class GameView extends StatefulWidget {
   const GameView({super.key});
