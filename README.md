@@ -1,14 +1,55 @@
-A new Flutter project.
+# Minesweeper Game App
 
-## Getting Started
+This is a simple Minesweeper game app developed using Flutter/Dart technologies. It features 3 difficulty settings, sound effects, and a timer that starts when the user begins the game. The game is implemented using the Provider package for state management and developed with **MVC** (_Model-View-Controller_) software architecture.
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+To use this app, simply clone the project and run it in your preferred IDE. No additional installation is required.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Usage
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To start a new game, simply choose a difficulty level, and the game board will be generated automatically. The size of the board changes based on the difficulty setting. To play, tap on any of the cells on the board to reveal what's underneath. If you reveal a bomb, the game is over. If you reveal a number, it indicates how many bombs are adjacent to that cell. Use this information to avoid the bombs and uncover the entire board to win the game.
+
+To mark a cell that you think contains a mine, you can hold down on the cell to place or remove a flag. There are as many flags as mines in the game, and you can use them to keep track of where you think the mines are.
+
+## Features
+
+- 3 difficulty settings
+- Sound effects
+- Timer that starts when the game begins
+- High score tracking
+- Flags for marking cells that contain mines
+- Board size changes based on difficulty setting
+
+
+## Technologies Used
+
+- [**Flutter**](https://flutter.dev)
+- [**Dart**](https://dart.dev)
+- [**Provider**](https://pub.dev/packages/provider)  package for state management
+- [**just_audio**](https://pub.dev/packages/just_audio) package for playing sounds
+- [**shared_preferences**](https://pub.dev/packages/shared_preferences) package for saving high scores
+- [**google_fonts**](https://pub.dev/packages/google_fonts) package for font styles
+
+## Screenshots
+Game Screen | Win Screen | Game Screen | Lose Screen
+:-:|:-:|:-:|:-:
+<img src="./screenshots/game_play.png" width=300/> | <img src="./screenshots/win_screen.png" width=300/> | <img src="./screenshots/game_play2.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/>
+
+## Roadmap
+
+- Add more sound effects and music options
+- Add the ability to customize game settings
+- Implement a leaderboard for tracking high scores
+
+## Contributing
+
+As this project was made by only one person, there is no team to contribute to it. However, feel free to fork the project and make your own changes or improvements.
+
+## Credits
+
+Created by [@recepsenoglu](https://github.com/recepsenoglu) - feel free to contact me!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/recepsenoglu/minesweeper/blob/main/LICENSE) file for details.
