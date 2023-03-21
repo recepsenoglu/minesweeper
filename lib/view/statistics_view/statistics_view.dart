@@ -7,9 +7,17 @@ class StatisticsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      appBar: StatsAppBar(),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: const StatsAppBar(),
+        body: TabBarView(children: [
+          Icon(Icons.abc),
+          Icon(Icons.abc),
+          Icon(Icons.abc),
+        ]),
+      ),
     );
   }
 }
