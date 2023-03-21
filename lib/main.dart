@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/game_controller.dart';
-import 'view/game_view/game_view.dart';
+import 'view/home_view/home_view.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<GameController>(
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GameView(),
+      home: const HomeView(),
     );
   }
 }

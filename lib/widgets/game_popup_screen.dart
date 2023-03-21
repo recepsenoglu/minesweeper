@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../constants/color_consts.dart';
 import '../constants/image_enums.dart';
 import '../controller/game_controller.dart';
+import '../view/home_view/home_view.dart';
 import 'play_again_button.dart';
 
 class GamePopupScreen {
@@ -98,7 +97,7 @@ class GamePopupScreen {
     );
   }
 
-  static void exitGame(BuildContext context) {
+  static void exitGame(BuildContext context, GameController gameController) {
     const String title = "Do you want to exit?";
     const String strCancel = "Cancel";
     const String strExit = "Exit";
@@ -115,8 +114,12 @@ class GamePopupScreen {
           ),
           TextButton(
             onPressed: () {
+              gameController.createNewGame();
               Navigator.pop(context);
-              exit(0);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeView()),
+                  (route) => false);
             },
             child: const Text(
               strExit,

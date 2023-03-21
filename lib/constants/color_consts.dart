@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class GameColors {
+  static const Color _appBar = Color(0xFF547436);
+  static const Color _homeScreenScaffold = Color(0xFF4AC0FD);
+
   static const Color _grassLight = Color(0xFFB3D665);
   static const Color _grassDark = Color(0xFFACD05E);
 
@@ -28,6 +31,9 @@ class GameColors {
   static const Color _mine5 = Color(0xFFECC444);
   static const Color _mine6 = Color(0xFFCA423E);
   static const Color _mine7 = Color(0xFF7AE3EF);
+
+  static Color get appBar => _appBar;
+  static Color get homeScreenScaffold => _homeScreenScaffold;
 
   static Color get grassLight => _grassLight;
   static Color get grassDark => _grassDark;
