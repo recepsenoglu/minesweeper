@@ -23,7 +23,7 @@ class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
       bottom: const TabBar(
         tabs: [
           Tab(text: "Easy"),
-          Tab(text: "Normal"),
+          Tab(text: "Medium"),
           Tab(text: "Hard"),
         ],
         indicator: BoxDecoration(),
