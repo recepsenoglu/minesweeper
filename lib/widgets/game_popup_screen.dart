@@ -31,6 +31,7 @@ class GamePopupScreen {
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: 280,

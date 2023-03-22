@@ -15,32 +15,26 @@ class PlayAgainButton extends StatelessWidget {
     const String strPlayAgain = "Play Again";
     const String strTryAgain = "Try Again";
 
-    return GestureDetector(
-      onTap: () {
+    return ElevatedButton.icon(
+      onPressed: () {
         GameAudioPlayer.pause();
         Navigator.pop(context);
         controller.createNewGame();
       },
-      child: Container(
-        decoration: BoxDecoration(
-            color: GameColors.popupPlayAgainButton,
-            borderRadius: BorderRadius.circular(8)),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const Icon(
-              Icons.refresh,
-              color: Colors.white,
-              size: 34,
-            ),
-            const SizedBox(width: 16),
-            Text(
-              userWon ? strPlayAgain : strTryAgain,
-              style: const TextStyle(fontSize: 26, color: Colors.white),
-            ),
-          ],
+      style: ElevatedButton.styleFrom(
+        backgroundColor: GameColors.popupPlayAgainButton,
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      ),
+      icon: const Icon(
+        Icons.refresh,
+        color: Colors.white,
+        size: 34,
+      ),
+      label: Text(
+        userWon ? strPlayAgain : strTryAgain,
+        style: const TextStyle(
+          fontSize: 24,
         ),
       ),
     );
