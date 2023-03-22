@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/helper/shared_helper.dart';
 
 import '../../constants/color_consts.dart';
 import '../../constants/game_consts.dart';
+import '../../helper/shared_helper.dart';
 
 class StatsTable extends StatelessWidget {
   final GameMode gameMode;
@@ -138,7 +138,7 @@ class StatWidget extends StatelessWidget {
             ],
           ),
           Text(
-            statValue == null ? "-" : statValue.toString(),
+            statValue ?? "-",
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
         ],

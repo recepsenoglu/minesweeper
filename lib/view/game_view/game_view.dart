@@ -37,10 +37,10 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: GameColors.mainSkyBlue,
-      appBar: const GameAppBar(),
-      body: const MineField(),
+      appBar:const GameAppBar(),
+      body:const MineField(),
     );
   }
 }

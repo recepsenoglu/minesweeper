@@ -13,6 +13,9 @@ class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     const String appBarTitle = "Game stats";
+    const String easyStr = "Easy";
+    const String mediumStr = "Medium";
+    const String hardStr = "Hard";
 
     return AppBar(
       elevation: 0,
@@ -22,9 +25,9 @@ class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
       titleTextStyle: const TextStyle(fontSize: 24),
       bottom: const TabBar(
         tabs: [
-          Tab(text: "Easy"),
-          Tab(text: "Medium"),
-          Tab(text: "Hard"),
+          Tab(text: easyStr),
+          Tab(text: mediumStr),
+          Tab(text: hardStr),
         ],
         indicator: BoxDecoration(),
         labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
