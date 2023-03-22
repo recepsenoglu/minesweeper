@@ -58,8 +58,8 @@ class Grass extends StatelessWidget {
 
   const Grass(
       {super.key,
-      required this.parentContext,
       required this.tile,
+      required this.parentContext,
       required this.gameController});
 
   @override
@@ -70,28 +70,37 @@ class Grass extends StatelessWidget {
             bool? userWon = await gameController.clickTile(tile);
 
             if (userWon != null) {
-              final sharedHelper = SharedHelper();
-              int? timeRecord =
-                  await sharedHelper.getRecord(gameController.gameMode);
+              final sharedHelper = await SharedHelper.init();
 
-              if (userWon && gameController.timeElapsed < (timeRecord ?? 999)) {
-                await sharedHelper.setRecord(
+              int? bestTime =
+                  await sharedHelper.getBestTime(gameController.gameMode);
+
+              if (userWon) {
+                await sharedHelper.updateAverageTime(
                     gameController.gameMode, gameController.timeElapsed);
-                timeRecord = gameController.timeElapsed;
+
+                await sharedHelper.increaseGamesWon(gameController.gameMode);
+
+                if (gameController.timeElapsed < (bestTime ?? 999)) {
+                  bestTime = gameController.timeElapsed;
+
+                  await sharedHelper.setBestTime(
+                      gameController.gameMode, bestTime);
+                }
               }
 
               if (context.mounted) {
                 GamePopupScreen.gameOver(
                   context,
                   win: userWon,
-                  timeRecord: timeRecord,
+                  bestTime: bestTime,
                   controller: gameController,
                 );
               } else {
                 GamePopupScreen.gameOver(
                   parentContext,
                   win: userWon,
-                  timeRecord: timeRecord,
+                  bestTime: bestTime,
                   controller: gameController,
                 );
               }

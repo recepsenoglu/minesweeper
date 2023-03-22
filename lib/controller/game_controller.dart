@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 import '../constants/audio_enums.dart';
 import '../constants/game_consts.dart';
+import '../helper/shared_helper.dart';
 import '../model/tile_model.dart';
 import '../utils/audio_player.dart';
 
 class GameController extends ChangeNotifier {
   late GameAudioPlayer _audioPlayer;
+  SharedHelper? _sharedHelper;
 
   GameController() {
     _audioPlayer = GameAudioPlayer();
@@ -37,6 +39,7 @@ class GameController extends ChangeNotifier {
   bool _mineOpeningAnimationOn = false;
 
   bool _volumeOn = true;
+
   /// Volume setting (on/off)
   bool get volumeOn => _volumeOn;
 
@@ -61,8 +64,8 @@ class GameController extends ChangeNotifier {
     createNewGame();
   }
 
-    /// Starts the timer
-  void startTimer() {
+  /// Starts the timer
+  void _startTimer() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!_gameHasStarted || _gameOver || _timeElapsed >= 999) {
         timer.cancel();
@@ -114,9 +117,16 @@ class GameController extends ChangeNotifier {
   /// Game start function
   void startGame(Tile tile) {
     _gameHasStarted = true;
-    startTimer();
+    _addGameStartLog();
+    _startTimer();
     _placeMines(tile);
     _openTile(tile.row, tile.col, playSound: true);
+  }
+
+  Future<void> _addGameStartLog() async {
+    _sharedHelper ??= await SharedHelper.init();
+
+    await _sharedHelper?.increaseGamesStarted(gameMode);
   }
 
   /// Reset game variables

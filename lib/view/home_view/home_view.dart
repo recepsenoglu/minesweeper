@@ -112,13 +112,18 @@ class GameTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = "MINESWEEPER";
 
-    return Text(
-      title,
-      style: TextStyle(
-        fontFamily: GoogleFonts.roboto().fontFamily,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 4,
-        fontSize: 42,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 48),
+      child: FittedBox(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: GoogleFonts.roboto().fontFamily,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 4,
+            fontSize: 42,
+          ),
+        ),
       ),
     );
   }

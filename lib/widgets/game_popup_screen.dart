@@ -12,7 +12,7 @@ class GamePopupScreen {
   static Future<void> gameOver(
     BuildContext context, {
     required GameController controller,
-    required int? timeRecord,
+    required int? bestTime,
     required bool win,
   }) async {
     String time = win
@@ -20,8 +20,8 @@ class GamePopupScreen {
             controller.timeElapsed.toString()
         : "---";
 
-    String record = timeRecord != null
-        ? "0" * (3 - timeRecord.toString().length) + timeRecord.toString()
+    String record = bestTime != null
+        ? "0" * (3 - bestTime.toString().length) + bestTime.toString()
         : "---";
 
     showDialog(
