@@ -28,26 +28,30 @@ class _MineFieldState extends State<MineField> {
         Provider.of<GameController>(context, listen: true);
     List<List<Tile>> mineField = gameController.mineField;
 
-    return GridView.builder(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
-        itemCount: gameController.boardLength * 10,
-        itemBuilder: (BuildContext context, index) {
-          Tile tile = mineField[index ~/ 10][index % 10];
+    return Center(
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 10),
+          itemCount: gameController.boardLength * 10,
+          itemBuilder: (BuildContext context, index) {
+            Tile tile = mineField[index ~/ 10][index % 10];
 
-          if (tile.visible == false) {
-            return Grass(
-              tile: tile,
-              parentContext: context,
-              gameController: gameController,
-            );
-          } else {
-            if (tile.hasMine) {
-              return Mine(index: index, tile: tile);
+            if (tile.visible == false) {
+              return Grass(
+                tile: tile,
+                parentContext: context,
+                gameController: gameController,
+              );
+            } else {
+              if (tile.hasMine) {
+                return Mine(index: index, tile: tile);
+              }
+              return OpenedTile(tile: tile);
             }
-            return OpenedTile(tile: tile);
-          }
-        });
+          }),
+    );
   }
 }
 

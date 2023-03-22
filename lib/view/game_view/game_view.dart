@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minesweeper/constants/color_consts.dart';
 
 import '../../utils/audio_player.dart';
 import 'app_bar.dart';
@@ -36,10 +37,10 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.black,
-      appBar: GameAppBar(),
-      body: MineField(),
+    return Scaffold(
+      backgroundColor: GameColors.mainSkyBlue,
+      appBar: const GameAppBar(),
+      body: const MineField(),
     );
   }
 }
