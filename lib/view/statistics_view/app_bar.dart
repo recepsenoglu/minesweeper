@@ -8,7 +8,7 @@ class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
     super.key,
   });
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.6);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.7);
 
   @override
   Widget build(BuildContext context) {
