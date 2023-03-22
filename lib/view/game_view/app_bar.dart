@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:minesweeper/constants/color_consts.dart';
+import 'package:minesweeper/view/home_view/home_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/game_consts.dart';
@@ -55,7 +56,14 @@ class GameAppBar extends StatelessWidget with PreferredSizeWidget {
                 padding: EdgeInsets.zero,
                 splashRadius: 20,
                 iconSize: 30,
-                onPressed: () => GamePopupScreen.exitGame(context, controller),
+                onPressed: () => controller.gameHasStarted
+                    ? GamePopupScreen.exitGame(context, controller)
+                    : Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeView(),
+                        ),
+                        (route) => false),
               ),
             ),
           ],

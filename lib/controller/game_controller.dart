@@ -35,6 +35,7 @@ class GameController extends ChangeNotifier {
   int get timeElapsed => _timeElapsed;
 
   bool _gameHasStarted = false;
+  bool get gameHasStarted => _gameHasStarted;
   bool _gameOver = false;
   bool _mineOpeningAnimationOn = false;
 
