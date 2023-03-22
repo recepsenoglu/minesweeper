@@ -17,8 +17,8 @@ class PlayAgainButton extends StatelessWidget {
 
     return ElevatedButton.icon(
       onPressed: () {
-        GameAudioPlayer.pause();
         Navigator.pop(context);
+        GameAudioPlayer.resetPlayer();
         controller.createNewGame();
       },
       style: ElevatedButton.styleFrom(

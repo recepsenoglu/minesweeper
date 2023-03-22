@@ -9,11 +9,12 @@ class GameAudioPlayer {
 
   GameAudioPlayer() {
     _player = AudioPlayer();
-    playable = true;
+    _player.play();
   }
 
-  static void dispose() {
+  static void resetPlayer() {
     _player.dispose();
+    _player = AudioPlayer();
   }
 
   static void pause() {
@@ -25,7 +26,9 @@ class GameAudioPlayer {
     playable = true;
     try {
       _player.play();
-    } catch (e) {debugPrint(e.toString());}
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   static Future<void> setVolume(bool soundOn) async {
