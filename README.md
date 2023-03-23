@@ -35,7 +35,7 @@ To mark a cell that you think contains a mine, you can hold down on the cell to 
 ## Screenshots
 HomeView |Gameplay |Gameplay |Statistics
 :-:|:-:|:-:|:-:
-<img src="./screenshots/home.gif" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/>
+![](./screenshots/home.gif) | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/>
 
 
 ## Roadmap
