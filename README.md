@@ -33,9 +33,9 @@ To mark a cell that you think contains a mine, you can hold down on the cell to 
 - [**google_fonts**](https://pub.dev/packages/google_fonts) package for font styles
 
 ## Screenshots
-|Home |Gameplay |Gameplay |Statistics
-:-:|:-:|:-:|:-:|
-<img src="./screenshots/home.png" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/> |
+HomeView |Gameplay |Gameplay |Statistics
+:-:|:-:|:-:|:-:
+<img src="./screenshots/home.gif" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/>
 
 
 ## Roadmap
