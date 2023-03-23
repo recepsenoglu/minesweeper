@@ -38,7 +38,8 @@ HomeView |Gameplay |Gameplay |Statistics
 <img src="./screenshots/home.png" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/>
 
 ## Preview
-![Preview](./preview/preview.mp4)
+
+https://user-images.githubusercontent.com/83721234/227311414-8494b690-8cb6-4a28-9e3f-d068b2fd4f25.mp4
 
 ## Roadmap
 
