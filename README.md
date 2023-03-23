@@ -37,6 +37,9 @@ HomeView |Gameplay |Gameplay |Statistics
 :-:|:-:|:-:|:-:
 <img src="./screenshots/home.png" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/>
 
+## Preview
+![Preview](./preview/preview.mp4)
+
 ## Roadmap
 
 - Add more sound effects and music options
