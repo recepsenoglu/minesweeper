@@ -1,6 +1,6 @@
 # Minesweeper Game App
 
-This is a simple Minesweeper game app developed using Flutter/Dart technologies. It features 3 difficulty settings, sound effects, and a timer that starts when the user begins the game. The game is implemented using the Provider package for state management and developed with **MVC** (_Model-View-Controller_) software architecture.
+This is a simple Minesweeper game app developed using Flutter/Dart technologies. It features 3 difficulty settings, sound effects, and a statistics page to keep track progress. The game is implemented using the Provider package for state management and developed with **MVC** (_Model-View-Controller_) software architecture.
 
 ## Installation
 
@@ -8,7 +8,7 @@ To use this app, simply clone the project and run it in your preferred IDE. No a
 
 ## Usage
 
-To start a new game, simply choose a difficulty level, and the game board will be generated automatically. The size of the board changes based on the difficulty setting. To play, tap on any of the cells on the board to reveal what's underneath. If you reveal a bomb, the game is over. If you reveal a number, it indicates how many bombs are adjacent to that cell. Use this information to avoid the bombs and uncover the entire board to win the game.
+To start a new game, click New game button and the game board will be generated automatically. You can choose a difficulty level for different sizes of game board and mine counts. To play, tap on any of the cells on the board to reveal what's underneath. If you reveal a bomb, the game is over. If you reveal a number, it indicates how many bombs are adjacent to that cell. Use this information to avoid the bombs and uncover the entire board to win the game.
 
 To mark a cell that you think contains a mine, you can hold down on the cell to place or remove a flag. There are as many flags as mines in the game, and you can use them to keep track of where you think the mines are.
 
@@ -17,9 +17,10 @@ To mark a cell that you think contains a mine, you can hold down on the cell to 
 - 3 difficulty settings
 - Sound effects
 - Timer that starts when the game begins
-- High score tracking
 - Flags for marking cells that contain mines
 - Board size changes based on difficulty setting
+- Gameplay metrics tracking
+
 
 
 ## Technologies Used
@@ -32,9 +33,10 @@ To mark a cell that you think contains a mine, you can hold down on the cell to 
 - [**google_fonts**](https://pub.dev/packages/google_fonts) package for font styles
 
 ## Screenshots
-Game Screen | Win Screen | Game Screen | Lose Screen
-:-:|:-:|:-:|:-:
-<img src="./screenshots/game_play.png" width=300/> | <img src="./screenshots/win_screen.png" width=300/> | <img src="./screenshots/game_play2.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/>
+|Home |Gameplay |Gameplay |Statistics
+:-:|:-:|:-:|:-:|
+<img src="./screenshots/home.png" width=300/> | <img src="./screenshots/gameplay.png" width=300/> | <img src="./screenshots/lose_screen.png" width=300/> | <img src="./screenshots/statistics.png" width=300/> |
+
 
 ## Roadmap
 
