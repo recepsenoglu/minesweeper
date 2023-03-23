@@ -38,7 +38,7 @@ class _MineFieldState extends State<MineField> {
           itemBuilder: (BuildContext context, index) {
             Tile tile = mineField[index ~/ 10][index % 10];
 
-            if (tile.visible == false) {
+            if (tile.visible == false || tile.hasFlag) {
               return Grass(
                 tile: tile,
                 parentContext: context,
@@ -114,7 +114,7 @@ class Grass extends StatelessWidget {
         onLongPress: () => gameController.placeFlag(tile),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
                     tile.row % 2 != 0 && tile.col % 2 != 0
@@ -123,7 +123,9 @@ class Grass extends StatelessWidget {
             border: tileBorder(tile),
           ),
           child: tile.hasFlag
-              ? Image.asset(Images.bookmark.toPath)
+              ? tile.visible
+                  ? Image.asset(Images.redCross.toPath)
+                  : Image.asset(Images.bookmark.toPath)
               : const SizedBox(),
         ));
   }

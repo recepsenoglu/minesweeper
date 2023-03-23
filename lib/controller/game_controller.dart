@@ -77,25 +77,77 @@ class GameController extends ChangeNotifier {
     });
   }
 
-  /// Makes all mines visible
-  Future<void> showAllMines() async {
-    var rnd = Random();
-    await Future.delayed(const Duration(milliseconds: 300));
-    _mineOpeningAnimationOn = true;
-    for (var r = 0; r < _boardLength; r++) {
-      for (var c = 0; c < 10; c++) {
-        if (mineField[r][c].hasMine && !mineField[r][c].hasFlag) {
-          mineField[r][c].setVisible = true;
-          if (_mineOpeningAnimationOn) {
-            notifyListeners();
-            await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
-            await Future.delayed(const Duration(milliseconds: 300));
-          }
+  List<Tile> findMines() {
+    List<Tile> mines = [];
+
+    for (List<Tile> row in mineField) {
+      for (Tile tile in row) {
+        if (!tile.visible && tile.hasMine && !tile.hasFlag) {
+          mines.add(tile);
         }
       }
     }
-    _mineOpeningAnimationOn = false;
+
+    return mines;
+  }
+
+  List<Tile> findMissPlacesFlags() {
+    List<Tile> missPlacesFlags = [];
+
+    for (List<Tile> row in mineField) {
+      for (Tile tile in row) {
+        if (!tile.visible && !tile.hasMine && tile.hasFlag) {
+          missPlacesFlags.add(tile);
+        }
+      }
+    }
+
+    return missPlacesFlags;
+  }
+
+  /// Makes all mines visible
+  Future<void> showAllMines() async {
+    List<Tile> mines = findMines();
+    mines.shuffle();
+
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    _mineOpeningAnimationOn = true;
+
+    var rnd = Random();
+
+    for (var mine in mines) {
+      int r = mine.row;
+      int c = mine.col;
+
+      mineField[r][c].setVisible = true;
+      if (_mineOpeningAnimationOn) {
+        notifyListeners();
+        await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
+    }
     notifyListeners();
+
+    await showMissPlacesFlags();
+
+    _mineOpeningAnimationOn = false;
+  }
+
+  Future<void> showMissPlacesFlags() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    List<Tile> missPlacesFlags = findMissPlacesFlags();
+    for (var mine in missPlacesFlags) {
+      int r = mine.row;
+      int c = mine.col;
+
+      mineField[r][c].setVisible = true;
+      notifyListeners();
+    }
+    if (missPlacesFlags.isNotEmpty) {
+      await _audioPlayer.playAudio(GameAudios.removeFlag);
+      await Future.delayed(const Duration(milliseconds: 1500));
+    }
   }
 
   /// Creates empty board
