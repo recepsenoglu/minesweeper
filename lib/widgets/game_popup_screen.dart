@@ -99,7 +99,7 @@ class GamePopupScreen {
   }
 
   static void exitGame(BuildContext context, GameController gameController) {
-    const String title = "Do you want to exit?";
+    const String title = "Exit game?";
     const String strCancel = "Cancel";
     const String strExit = "Exit";
     showDialog(
