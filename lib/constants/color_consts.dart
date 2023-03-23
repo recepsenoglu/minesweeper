@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GameColors {
-  static const Color _appBar = Color(0xFF547436);
-  static const Color _homeScreenScaffold = Color(0xFF4AC0FD);
   static const Color _mainSkyBlue = Color(0xFF4AC0FD);
+  static const Color _mainDarkGreen = Color(0xFF547436);
 
   static const Color _grassLight = Color(0xFFB3D665);
   static const Color _grassDark = Color(0xFFACD05E);
@@ -12,9 +11,6 @@ class GameColors {
   static const Color _tileDark = Color(0xFFD2B99D);
 
   static const Color _tileBorder = Color(0xFF8FAE4D);
-
-  static const Color _popupBackground = Color(0xFF4AC0FD);
-  static const Color _popupPlayAgainButton = Color(0xFF547436);
 
   static const Color _valueText1 = Color(0xFF3874CB);
   static const Color _valueText2 = Color(0xFF508C46);
@@ -33,8 +29,7 @@ class GameColors {
   static const Color _mine6 = Color(0xFFCA423E);
   static const Color _mine7 = Color(0xFF7AE3EF);
 
-  static Color get appBar => _appBar;
-  static Color get homeScreenScaffold => _homeScreenScaffold;
+  static Color get appBar => _mainDarkGreen;
   static Color get mainSkyBlue => _mainSkyBlue;
 
   static Color get grassLight => _grassLight;
@@ -45,8 +40,9 @@ class GameColors {
 
   static Color get tileBorder => _tileBorder;
 
-  static Color get popupBackground => _popupBackground;
-  static Color get popupPlayAgainButton => _popupPlayAgainButton;
+  static Color get popupBackground => _mainSkyBlue;
+  static Color get popupPlayAgainButton => _mainDarkGreen;
+  static Color get skipButton => _mainDarkGreen;
 
   static List<Color> get valueTextColors => [
         _valueText1,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants/color_consts.dart';
 import '../../constants/image_enums.dart';
@@ -10,7 +9,8 @@ import '../../model/tile_model.dart';
 import '../../widgets/game_popup_screen.dart';
 
 class MineField extends StatefulWidget {
-  const MineField({super.key});
+  final GameController gameController;
+  const MineField({super.key, required this.gameController});
 
   @override
   State<MineField> createState() => _MineFieldState();
@@ -24,9 +24,7 @@ class _MineFieldState extends State<MineField> {
 
   @override
   Widget build(BuildContext context) {
-    GameController gameController =
-        Provider.of<GameController>(context, listen: true);
-    List<List<Tile>> mineField = gameController.mineField;
+    List<List<Tile>> mineField = widget.gameController.mineField;
 
     return Center(
       child: GridView.builder(
@@ -34,7 +32,7 @@ class _MineFieldState extends State<MineField> {
           physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 10),
-          itemCount: gameController.boardLength * 10,
+          itemCount: widget.gameController.boardLength * 10,
           itemBuilder: (BuildContext context, index) {
             Tile tile = mineField[index ~/ 10][index % 10];
 
@@ -42,7 +40,7 @@ class _MineFieldState extends State<MineField> {
               return Grass(
                 tile: tile,
                 parentContext: context,
-                gameController: gameController,
+                gameController: widget.gameController,
               );
             } else {
               if (tile.hasMine) {

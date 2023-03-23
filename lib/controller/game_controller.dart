@@ -37,7 +37,14 @@ class GameController extends ChangeNotifier {
   bool _gameHasStarted = false;
   bool get gameHasStarted => _gameHasStarted;
   bool _gameOver = false;
-  bool _mineOpeningAnimationOn = false;
+  bool _minesAnimation = false;
+
+  bool get isMineAnimationOn => _minesAnimation;
+
+  set minesAnimation(bool value) {
+    _minesAnimation = value;
+    notifyListeners();
+  }
 
   bool _volumeOn = true;
 
@@ -112,7 +119,7 @@ class GameController extends ChangeNotifier {
 
     await Future.delayed(const Duration(milliseconds: 300));
 
-    _mineOpeningAnimationOn = true;
+    _minesAnimation = true;
 
     var rnd = Random();
 
@@ -121,7 +128,7 @@ class GameController extends ChangeNotifier {
       int c = mine.col;
 
       mineField[r][c].setVisible = true;
-      if (_mineOpeningAnimationOn) {
+      if (_minesAnimation) {
         notifyListeners();
         await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
         await Future.delayed(const Duration(milliseconds: 300));
@@ -131,11 +138,13 @@ class GameController extends ChangeNotifier {
 
     await showMissPlacesFlags();
 
-    _mineOpeningAnimationOn = false;
+    _minesAnimation = false;
   }
 
   Future<void> showMissPlacesFlags() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    if (_minesAnimation) {
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
     List<Tile> missPlacesFlags = findMissPlacesFlags();
     for (var mine in missPlacesFlags) {
       int r = mine.row;
@@ -144,7 +153,7 @@ class GameController extends ChangeNotifier {
       mineField[r][c].setVisible = true;
       notifyListeners();
     }
-    if (missPlacesFlags.isNotEmpty) {
+    if (missPlacesFlags.isNotEmpty && _minesAnimation) {
       await _audioPlayer.playAudio(GameAudios.removeFlag);
       await Future.delayed(const Duration(milliseconds: 1500));
     }
@@ -266,8 +275,6 @@ class GameController extends ChangeNotifier {
       startGame(tile);
     } else if (!_gameOver) {
       return await _openTile(tile.row, tile.col, playSound: true);
-    } else if (_mineOpeningAnimationOn) {
-      _mineOpeningAnimationOn = false;
     }
     return null;
   }

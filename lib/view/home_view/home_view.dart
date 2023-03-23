@@ -14,11 +14,11 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GameColors.homeScreenScaffold,
+      backgroundColor: GameColors.mainSkyBlue,
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 0,
-        backgroundColor: GameColors.homeScreenScaffold,
+        backgroundColor: GameColors.mainSkyBlue,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: Column(
@@ -128,4 +128,3 @@ class GameTitle extends StatelessWidget {
     );
   }
 }
-

@@ -19,7 +19,7 @@ class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
 
     return AppBar(
       elevation: 0,
-      backgroundColor: GameColors.homeScreenScaffold,
+      backgroundColor: GameColors.mainSkyBlue,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       title: const Text(appBarTitle),
       titleTextStyle: const TextStyle(fontSize: 24),

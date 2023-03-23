@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/constants/color_consts.dart';
+import 'package:provider/provider.dart';
 
+import '../../constants/color_consts.dart';
+import '../../controller/game_controller.dart';
 import '../../utils/audio_player.dart';
+import '../../widgets/skip_button.dart';
 import 'app_bar.dart';
 import 'mine_field.dart';
 
@@ -37,10 +40,19 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    GameController gameController =
+        Provider.of<GameController>(context, listen: true);
+
+    return Scaffold(
       backgroundColor: GameColors.mainSkyBlue,
-      appBar:const GameAppBar(),
-      body:const MineField(),
+      appBar: const GameAppBar(),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          MineField(gameController: gameController),
+          SkipButton(gameController: gameController),
+        ],
+      ),
     );
   }
 }
