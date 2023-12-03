@@ -5,7 +5,7 @@ import '../../controller/game_controller.dart';
 import '../../helper/audio_player.dart';
 import '../../utils/game_colors.dart';
 import '../../widgets/skip_button.dart';
-import 'app_bar.dart';
+import 'top_bar.dart';
 import 'mine_field.dart';
 
 class GameView extends StatefulWidget {
@@ -45,12 +45,18 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
 
     return Scaffold(
       backgroundColor: GameColors.mainSkyBlue,
-      appBar: const GameAppBar(),
-      body: Stack(
-        alignment: Alignment.center,
+      body: Column(
         children: [
-          MineField(gameController: gameController),
-          SkipButton(gameController: gameController),
+          const GameTopBar(),
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                MineField(gameController: gameController),
+                SkipButton(gameController: gameController),
+              ],
+            ),
+          ),
         ],
       ),
     );
