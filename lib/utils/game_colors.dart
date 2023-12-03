@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class GameColors {
-  static const Color _buttonColor = Color(0xFF4994EC);
   static const Color _mainSkyBlue = Color(0xFF4AC0FD);
   static const Color _mainDarkGreen = Color(0xFF547436);
+  static const Color _darkBlue = Color(0xFF4994EC);
+  static const Color _background = Color(0xFFF6F6F6);
 
   static const Color _grassLight = Color(0xFFA7D948);
   static const Color _grassDark = Color(0xFF8ECC39);
@@ -31,8 +32,10 @@ class GameColors {
   static const Color _mine7 = Color(0xFF7AE3EF);
 
   static Color get appBar => _mainDarkGreen;
-  static Color get button => _buttonColor;
+  static Color get darkBlue => _darkBlue;
   static Color get mainSkyBlue => _mainSkyBlue;
+  static Color get mainDarkGreen => _mainDarkGreen;
+  static Color get background => _background;
 
   static Color get grassLight => _grassLight;
   static Color get grassDark => _grassDark;

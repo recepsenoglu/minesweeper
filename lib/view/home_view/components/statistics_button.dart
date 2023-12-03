@@ -24,7 +24,7 @@ class StatisticsButton extends StatelessWidget {
       elevation: 6,
       icon: Icons.bar_chart,
       text: GameStrings.statistics,
-      textColor: GameColors.button,
+      textColor: GameColors.darkBlue,
       width: GameSizes.getWidth(0.35),
       textSize: GameSizes.getWidth(0.045),
       iconSize: GameSizes.getWidth(0.05),

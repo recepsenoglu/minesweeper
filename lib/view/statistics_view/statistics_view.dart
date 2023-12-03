@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/utils/game_colors.dart';
-import 'package:minesweeper/utils/game_sizes.dart';
-import 'package:minesweeper/utils/game_strings.dart';
 
+import '../../utils/game_colors.dart';
 import '../../utils/game_consts.dart';
+import '../../utils/game_sizes.dart';
+import '../../utils/game_strings.dart';
 import 'stats_table.dart';
 
 class StatisticsView extends StatelessWidget {
@@ -14,12 +14,12 @@ class StatisticsView extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: GameColors.background,
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
           toolbarHeight: GameSizes.getHeight(0.08),
-          backgroundColor: GameColors.mainSkyBlue,
+          backgroundColor: GameColors.darkBlue,
           title: const Text(GameStrings.gameStats),
           titleTextStyle: TextStyle(
             color: Colors.white,
@@ -38,17 +38,20 @@ class StatisticsView extends StatelessWidget {
             ),
           ),
           bottom: TabBar(
+            indicatorColor: Colors.white,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorWeight: 2,
             tabs: const [
               Tab(text: GameStrings.easy),
               Tab(text: GameStrings.medium),
               Tab(text: GameStrings.hard),
             ],
-            indicator: const BoxDecoration(),
+            // indicator: const BoxDecoration(),
             labelStyle: TextStyle(
+              letterSpacing: 2,
               color: Colors.white,
               fontWeight: FontWeight.w800,
               fontSize: GameSizes.getWidth(0.042),
-              letterSpacing: 2,
             ),
             unselectedLabelStyle: const TextStyle(color: Colors.white60),
           ),

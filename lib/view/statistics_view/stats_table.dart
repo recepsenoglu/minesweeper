@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../helper/shared_helper.dart';
 import '../../utils/game_colors.dart';
 import '../../utils/game_consts.dart';
+import '../../utils/game_sizes.dart';
 
 class StatsTable extends StatelessWidget {
   final GameMode gameMode;
@@ -62,7 +63,7 @@ class StatsTable extends StatelessWidget {
           Map<String, dynamic> stats = snapshot.data!;
 
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: GameSizes.getPadding(0.04),
             child: Column(
               children: [
                 StatWidget(
@@ -112,11 +113,11 @@ class StatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 10),
+      padding: GameSizes.getPadding(0.04),
+      margin: EdgeInsets.only(bottom: GameSizes.getHeight(0.015)),
       decoration: BoxDecoration(
-          color: GameColors.mainSkyBlue.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(12)),
+          color: GameColors.darkBlue.withOpacity(0.2),
+          borderRadius: GameSizes.getRadius(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,20 +127,25 @@ class StatWidget extends StatelessWidget {
             children: [
               Icon(
                 iconData,
-                size: 42,
-                color: GameColors.darken(GameColors.mainSkyBlue),
+                size: GameSizes.getWidth(0.1),
+                color: Colors.black,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: GameSizes.getHeight(0.015)),
               Text(
                 statName,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: GameSizes.getWidth(0.045),
+                ),
               ),
             ],
           ),
           Text(
             statValue == null ? "-" : statValue.toString(),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: GameSizes.getWidth(0.05),
+            ),
           ),
         ],
       ),
