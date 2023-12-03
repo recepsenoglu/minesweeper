@@ -1,7 +1,7 @@
 enum Images {
   stopwatch,
   trophy,
-  bookmark,
+  flag,
   redCross,
   loseScreen,
   winScreen,

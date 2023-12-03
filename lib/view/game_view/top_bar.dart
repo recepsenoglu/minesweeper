@@ -17,7 +17,7 @@ class GameTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: GameColors.appBar,
-      padding: GameSizes.getSymmetricPadding(0.04, 0.005),
+      padding: GameSizes.getSymmetricPadding(0.02, 0.01),
       child: Consumer<GameController>(
         builder: (context, GameController controller, child) => Row(
           children: [
@@ -99,8 +99,8 @@ class Flags extends StatelessWidget {
     return Row(
       children: [
         Image.asset(
-          Images.bookmark.toPath,
-          width: GameSizes.getWidth(0.07),
+          Images.flag.toPath,
+          width: GameSizes.getWidth(0.08),
         ),
         SizedBox(width: GameSizes.getWidth(0.01)),
         Text(
@@ -127,7 +127,7 @@ class DifficultySettings extends StatelessWidget {
 
     return Container(
       height: GameSizes.getWidth(0.08),
-      margin: EdgeInsets.only(right: GameSizes.getWidth(0.02)),
+      margin: GameSizes.getSymmetricPadding(0.02, 0.01),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: GameSizes.getRadius(6),

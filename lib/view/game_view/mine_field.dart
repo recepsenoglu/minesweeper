@@ -112,7 +112,7 @@ class Grass extends StatelessWidget {
         onLongPress: () => gameController.placeFlag(tile),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(4),
+          padding: const EdgeInsets.all(1),
           decoration: BoxDecoration(
             color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
                     tile.row % 2 != 0 && tile.col % 2 != 0
@@ -123,7 +123,7 @@ class Grass extends StatelessWidget {
           child: tile.hasFlag
               ? tile.visible
                   ? Image.asset(Images.redCross.toPath)
-                  : Image.asset(Images.bookmark.toPath)
+                  : Image.asset(Images.flag.toPath)
               : const SizedBox(),
         ));
   }
