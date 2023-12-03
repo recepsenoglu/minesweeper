@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../constants/color_consts.dart';
 
-class StatsAppBar extends StatelessWidget with PreferredSizeWidget {
+class StatsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const StatsAppBar({
     super.key,
   });

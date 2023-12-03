@@ -10,7 +10,7 @@ import '../../controller/game_controller.dart';
 import '../../helper/functions.dart';
 import '../../widgets/game_popup_screen.dart';
 
-class GameAppBar extends StatelessWidget with PreferredSizeWidget {
+class GameAppBar extends StatelessWidget implements PreferredSizeWidget {
   const GameAppBar({super.key});
 
   @override
