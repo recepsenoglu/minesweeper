@@ -101,12 +101,12 @@ double _left = 0;
 class _NewGameButtonState extends State<NewGameButton> {
   @override
   void initState() {
-    Timer.periodic(const Duration(milliseconds: 1300), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       if (mounted) {
         setState(() {
-          _buttonWidth = _buttonWidth >= GameSizes.getWidth(0.23)
-              ? GameSizes.getWidth(0.23)
-              : GameSizes.getWidth(0.3);
+          _buttonWidth = _buttonWidth > GameSizes.getWidth(0.2)
+              ? GameSizes.getWidth(0.2)
+              : GameSizes.getWidth(0.25);
         });
       } else {
         timer.cancel();
@@ -184,10 +184,14 @@ class _NewGameButtonState extends State<NewGameButton> {
               color: Colors.grey.shade200,
               textColor: Colors.white,
               child: AnimatedSize(
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 800),
                 curve: Curves.easeInOut,
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
+                  duration: const Duration(milliseconds: 800),
+                  decoration: BoxDecoration(
+                    // color: Colors.grey.shade200,
+                    borderRadius: GameSizes.getRadius(16),
+                  ),
                   width: _buttonWidth,
                   height: _buttonWidth,
                   child: Image.asset(
