@@ -3,11 +3,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../constants/audio_enums.dart';
-import '../constants/game_consts.dart';
+import '../helper/audio_player.dart';
 import '../helper/shared_helper.dart';
 import '../model/tile_model.dart';
-import '../utils/audio_player.dart';
+import '../utils/game_consts.dart';
+import '../utils/game_sounds.dart';
 
 class GameController extends ChangeNotifier {
   late GameAudioPlayer _audioPlayer;
@@ -130,7 +130,7 @@ class GameController extends ChangeNotifier {
       mineField[r][c].setVisible = true;
       if (_minesAnimation) {
         notifyListeners();
-        await _audioPlayer.playAudio(GameAudios.mineSound[rnd.nextInt(3)]);
+        await _audioPlayer.playAudio(GameSounds.mineSound[rnd.nextInt(3)]);
         await Future.delayed(const Duration(milliseconds: 300));
       }
     }
@@ -154,7 +154,7 @@ class GameController extends ChangeNotifier {
       notifyListeners();
     }
     if (missPlacesFlags.isNotEmpty && _minesAnimation) {
-      await _audioPlayer.playAudio(GameAudios.removeFlag);
+      await _audioPlayer.playAudio(GameSounds.removeFlag);
       await Future.delayed(const Duration(milliseconds: 1500));
     }
   }
@@ -209,9 +209,9 @@ class GameController extends ChangeNotifier {
     _gameOver = true;
     notifyListeners();
 
-    _audioPlayer.playAudio(GameAudios.lastHit);
+    _audioPlayer.playAudio(GameSounds.lastHit);
     await Future.delayed(const Duration(milliseconds: 1500), () {
-      _audioPlayer.playAudio(GameAudios.win, loop: true);
+      _audioPlayer.playAudio(GameSounds.win, loop: true);
     });
   }
 
@@ -220,7 +220,7 @@ class GameController extends ChangeNotifier {
     _gameOver = true;
     notifyListeners();
     await showAllMines();
-    _audioPlayer.playAudio(GameAudios.lose, loop: true);
+    _audioPlayer.playAudio(GameSounds.lose, loop: true);
   }
 
   /// Places mines to empty game board. The number of mines depends on the game difficulty.
@@ -265,7 +265,7 @@ class GameController extends ChangeNotifier {
       _flagCount += flagValue ? -1 : 1;
       notifyListeners();
       _audioPlayer
-          .playAudio(flagValue ? GameAudios.putFlag : GameAudios.removeFlag);
+          .playAudio(flagValue ? GameSounds.putFlag : GameSounds.removeFlag);
     }
   }
 
@@ -289,7 +289,7 @@ class GameController extends ChangeNotifier {
     if (mineField[row][col].visible) return null;
     if (mineField[row][col].hasMine) {
       mineField[row][col].setVisible = true;
-      _audioPlayer.playAudio(GameAudios.mineSound[0]);
+      _audioPlayer.playAudio(GameSounds.mineSound[0]);
       await loseTheGame();
       return false;
     }
@@ -307,9 +307,9 @@ class GameController extends ChangeNotifier {
       return true;
     } else {
       if (playSound) {
-        _audioPlayer.playAudio(GameAudios.clickSounds[
-            minesAround >= GameAudios.clickSounds.length
-                ? GameAudios.clickSounds.length - 1
+        _audioPlayer.playAudio(GameSounds.clickSounds[
+            minesAround >= GameSounds.clickSounds.length
+                ? GameSounds.clickSounds.length - 1
                 : minesAround]);
       }
       if (minesAround == 0) {

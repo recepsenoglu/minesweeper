@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/color_consts.dart';
 import '../../controller/game_controller.dart';
-import '../../utils/audio_player.dart';
+import '../../helper/audio_player.dart';
+import '../../utils/game_colors.dart';
 import '../../widgets/skip_button.dart';
 import 'app_bar.dart';
 import 'mine_field.dart';

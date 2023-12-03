@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/helper/shared_helper.dart';
 
-import '../../constants/color_consts.dart';
-import '../../constants/game_consts.dart';
+import '../../helper/shared_helper.dart';
+import '../../utils/game_colors.dart';
+import '../../utils/game_consts.dart';
 
 class StatsTable extends StatelessWidget {
   final GameMode gameMode;

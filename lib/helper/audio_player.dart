@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../constants/audio_enums.dart';
+import '../utils/game_sounds.dart';
+
 
 class GameAudioPlayer {
   static late AudioPlayer _player;
@@ -48,8 +49,8 @@ class GameAudioPlayer {
     return false;
   }
 
-  Future<void> playAudio(Audio audio, {bool loop = false}) async {
-    if (await _setAudio(audio.toPath) && playable) {
+  Future<void> playAudio(Sound sound, {bool loop = false}) async {
+    if (await _setAudio(sound.toPath) && playable) {
       if (loop) {
         _player.setLoopMode(LoopMode.one);
       }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants/color_consts.dart';
-import '../constants/image_enums.dart';
 import '../controller/game_controller.dart';
+import '../utils/game_colors.dart';
+import '../utils/game_images.dart';
 import '../view/home_view/home_view.dart';
 import 'play_again_button.dart';
 

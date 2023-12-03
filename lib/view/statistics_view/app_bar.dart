@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../constants/color_consts.dart';
+import '../../utils/game_colors.dart';
 
 class StatsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const StatsAppBar({

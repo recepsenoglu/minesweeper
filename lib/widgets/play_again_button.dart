@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants/color_consts.dart';
 import '../controller/game_controller.dart';
-import '../utils/audio_player.dart';
+import '../helper/audio_player.dart';
+import '../utils/game_colors.dart';
 
 class PlayAgainButton extends StatelessWidget {
   final GameController controller;

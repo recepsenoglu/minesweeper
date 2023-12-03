@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/color_consts.dart';
+import '../utils/game_colors.dart';
 import '../controller/game_controller.dart';
 
 class SkipButton extends StatelessWidget {

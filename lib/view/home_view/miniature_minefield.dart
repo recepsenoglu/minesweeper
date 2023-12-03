@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../constants/color_consts.dart';
+import '../../utils/game_colors.dart';
 
 class MiniatureMinefield extends StatefulWidget {
   const MiniatureMinefield({

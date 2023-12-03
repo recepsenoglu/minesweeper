@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constants/game_consts.dart';
+import '../utils/game_consts.dart';
 
 class SharedHelper {
   late final SharedPreferences _prefs;

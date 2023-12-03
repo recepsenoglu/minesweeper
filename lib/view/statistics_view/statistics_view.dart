@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/game_consts.dart';
+import '../../utils/game_consts.dart';
 import 'app_bar.dart';
 import 'stats_table.dart';
 

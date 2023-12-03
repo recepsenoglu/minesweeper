@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants/color_consts.dart';
-import '../../constants/image_enums.dart';
+import '../../utils/game_colors.dart';
+import '../../utils/game_images.dart';
 import '../../controller/game_controller.dart';
 import '../../helper/shared_helper.dart';
 import '../../model/tile_model.dart';
