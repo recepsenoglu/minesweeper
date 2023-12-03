@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minesweeper/utils/game_sizes.dart';
 
 import '../controller/game_controller.dart';
 import '../utils/game_colors.dart';
@@ -28,69 +29,72 @@ class GamePopupScreen {
       context: context,
       barrierDismissible: false,
       builder: (context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: GameSizes.getHorizontalPadding(0.08),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 280,
+              height: GameSizes.getWidth(0.8),
               decoration: BoxDecoration(
                   color: GameColors.popupBackground,
-                  borderRadius: BorderRadius.circular(16)),
+                  borderRadius: GameSizes.getRadius(16)),
               child: Stack(
                 children: [
                   Positioned(
-                      bottom: 0,
-                      right: 0,
                       left: 0,
+                      right: 0,
+                      bottom: 0,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.asset(win
                               ? Images.winScreen.toPath
                               : Images.loseScreen.toPath))),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                  height: 72,
-                                  child: Image.asset(Images.stopwatch.toPath)),
-                              const SizedBox(height: 10),
-                              Text(
-                                time,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 36),
+                  Padding(
+                    padding: GameSizes.getSymmetricPadding(0.03, 0.04),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: GameSizes.getWidth(0.18),
+                              child: Image.asset(Images.stopwatch.toPath),
+                            ),
+                            SizedBox(height: GameSizes.getWidth(0.01)),
+                            Text(
+                              time,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: GameSizes.getWidth(0.09),
                               ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                  height: 72,
-                                  child: Image.asset(Images.trophy.toPath)),
-                              const SizedBox(height: 10),
-                              Text(
-                                record,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 36),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: GameSizes.getWidth(0.18),
+                              child: Image.asset(Images.trophy.toPath),
+                            ),
+                            SizedBox(height: GameSizes.getWidth(0.01)),
+                            Text(
+                              record,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: GameSizes.getWidth(0.09),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: GameSizes.getHeight(0.02)),
             PlayAgainButton(controller: controller, userWon: win),
           ],
         ),

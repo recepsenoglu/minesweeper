@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/game_sizes.dart';
 
-import '../../utils/game_colors.dart';
-import '../../utils/game_images.dart';
 import '../../controller/game_controller.dart';
 import '../../helper/shared_helper.dart';
 import '../../model/tile_model.dart';
+import '../../utils/game_colors.dart';
+import '../../utils/game_images.dart';
 import '../../widgets/game_popup_screen.dart';
 
-class MineField extends StatefulWidget {
+class MineField extends StatelessWidget {
   final GameController gameController;
   const MineField({super.key, required this.gameController});
 
   @override
-  State<MineField> createState() => _MineFieldState();
-}
-
-class _MineFieldState extends State<MineField> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    List<List<Tile>> mineField = widget.gameController.mineField;
+    List<List<Tile>> mineField = gameController.mineField;
 
     return Center(
       child: GridView.builder(
@@ -32,7 +23,7 @@ class _MineFieldState extends State<MineField> {
           physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 10),
-          itemCount: widget.gameController.boardLength * 10,
+          itemCount: gameController.boardLength * 10,
           itemBuilder: (BuildContext context, index) {
             Tile tile = mineField[index ~/ 10][index % 10];
 
@@ -40,12 +31,11 @@ class _MineFieldState extends State<MineField> {
               return Grass(
                 tile: tile,
                 parentContext: context,
-                gameController: widget.gameController,
+                gameController: gameController,
               );
             } else {
-              if (tile.hasMine) {
-                return Mine(index: index, tile: tile);
-              }
+              if (tile.hasMine) return Mine(index: index, tile: tile);
+
               return OpenedTile(tile: tile);
             }
           }),
@@ -112,7 +102,7 @@ class Grass extends StatelessWidget {
         onLongPress: () => gameController.placeFlag(tile),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(1),
+          padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
             color: tile.row % 2 == 0 && tile.col % 2 == 0 ||
                     tile.row % 2 != 0 && tile.col % 2 != 0
@@ -141,14 +131,12 @@ class Mine extends StatelessWidget {
         GameColors.mineColors[index % GameColors.mineColors.length];
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(8),
+      padding: GameSizes.getPadding(0.02),
       decoration: BoxDecoration(
         color: mineColor,
         border: tileBorder(tile),
       ),
-      child: CircleAvatar(
-        backgroundColor: GameColors.darken(mineColor),
-      ),
+      child: CircleAvatar(backgroundColor: GameColors.darken(mineColor)),
     );
   }
 }
@@ -172,8 +160,8 @@ class OpenedTile extends StatelessWidget {
           ? Text(tile.toString(),
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
-                    fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    fontSize: GameSizes.getWidth(0.06),
                     color: GameColors.valueTextColors[tile.value - 1]),
               ))
           : const SizedBox(),
@@ -183,25 +171,17 @@ class OpenedTile extends StatelessWidget {
 
 BoxBorder tileBorder(Tile tile) {
   return Border(
-    left: BorderSide(
-      width: 3,
-      color: GameColors.tileBorder,
-      style: tile.ltrb[0] ? BorderStyle.solid : BorderStyle.none,
-    ),
-    top: BorderSide(
-      width: 3,
-      color: GameColors.tileBorder,
-      style: tile.ltrb[1] ? BorderStyle.solid : BorderStyle.none,
-    ),
-    right: BorderSide(
-      width: 3,
-      color: GameColors.tileBorder,
-      style: tile.ltrb[2] ? BorderStyle.solid : BorderStyle.none,
-    ),
-    bottom: BorderSide(
-      width: 3,
-      color: GameColors.tileBorder,
-      style: tile.ltrb[3] ? BorderStyle.solid : BorderStyle.none,
-    ),
+    top: createBorderSide(tile.ltrb[1]),
+    left: createBorderSide(tile.ltrb[0]),
+    right: createBorderSide(tile.ltrb[2]),
+    bottom: createBorderSide(tile.ltrb[3]),
+  );
+}
+
+BorderSide createBorderSide(bool isSolid) {
+  return BorderSide(
+    color: GameColors.tileBorder,
+    width: GameSizes.getWidth(0.005),
+    style: isSolid ? BorderStyle.solid : BorderStyle.none,
   );
 }

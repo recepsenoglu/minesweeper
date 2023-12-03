@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../../controller/game_controller.dart';
 import '../../helper/audio_player.dart';
-import '../../utils/game_colors.dart';
 import '../../widgets/skip_button.dart';
-import 'top_bar.dart';
 import 'mine_field.dart';
+import 'top_bar.dart';
 
 class GameView extends StatefulWidget {
   const GameView({super.key});
@@ -44,7 +43,7 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
         Provider.of<GameController>(context, listen: true);
 
     return Scaffold(
-      backgroundColor: GameColors.mainSkyBlue,
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           const GameTopBar(),

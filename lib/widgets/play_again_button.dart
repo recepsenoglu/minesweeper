@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../controller/game_controller.dart';
 import '../helper/audio_player.dart';
-import '../utils/game_colors.dart';
+import '../utils/exports.dart';
+import 'custom_button.dart';
 
 class PlayAgainButton extends StatelessWidget {
   final GameController controller;
@@ -12,31 +13,18 @@ class PlayAgainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String strPlayAgain = "Play Again";
-    const String strTryAgain = "Try Again";
-
-    return ElevatedButton.icon(
+    return CustomButton(
+      text: userWon ? GameStrings.playAgain : GameStrings.tryAgain,
       onPressed: () {
         Navigator.pop(context);
-        GameAudioPlayer.resetPlayer();
         controller.createNewGame();
+        GameAudioPlayer.resetPlayer();
       },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: GameColors.popupPlayAgainButton,
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      ),
-      icon: const Icon(
-        Icons.refresh,
-        color: Colors.white,
-        size: 34,
-      ),
-      label: Text(
-        userWon ? strPlayAgain : strTryAgain,
-        style: const TextStyle(
-          fontSize: 24,
-        ),
-      ),
+      icon: Icons.refresh,
+      textColor: Colors.white,
+      iconSize: GameSizes.getWidth(0.08),
+      color: GameColors.popupPlayAgainButton,
+      padding: GameSizes.getSymmetricPadding(0.05, 0.015),
     );
   }
 }

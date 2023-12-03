@@ -53,7 +53,7 @@ class CustomButton extends StatelessWidget {
             backgroundColor: color,
             shadowColor: Colors.black.withOpacity(0.5),
             disabledBackgroundColor: Colors.grey,
-            padding: padding ?? GameSizes.getSymmetricPadding(0.04, 0.015),
+            padding: padding ?? GameSizes.getSymmetricPadding(0.04, 0.01),
             shape: RoundedRectangleBorder(
               borderRadius: GameSizes.getRadius(radius),
               side: BorderSide(color: borderColor),

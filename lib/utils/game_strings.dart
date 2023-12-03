@@ -12,5 +12,12 @@ class GameStrings {
   static const String medium = 'Medium';
   static const String hard = 'Hard';
 
-
+  // Game
+  static const String skip = 'Skip';
+  static const String exit = 'Exit';
+  static const String playAgain = 'Play Again';
+  static const String tryAgain = 'Try Again';
+  static const String win = 'You Win!';
+  static const String lose = 'You Lose!';
+  static const String bestTime = 'Best Time';
 }

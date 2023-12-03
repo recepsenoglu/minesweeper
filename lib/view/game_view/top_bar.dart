@@ -136,9 +136,10 @@ class DifficultySettings extends StatelessWidget {
         child: DropdownButton<GameMode>(
           isDense: true,
           value: gameMode,
-          alignment: Alignment.center,
+          alignment: Alignment.centerLeft,
           borderRadius: GameSizes.getRadius(10),
           underline: const SizedBox(),
+          padding: EdgeInsets.only(left: GameSizes.getWidth(0.02)),
           items: allModes.map<DropdownMenuItem<GameMode>>((GameMode value) {
             return DropdownMenuItem<GameMode>(
               value: value,
@@ -155,7 +156,7 @@ class DifficultySettings extends StatelessWidget {
           style:  TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w400,
-            fontSize: GameSizes.getWidth(0.04),
+            fontSize: GameSizes.getWidth(0.03),
           ),
           onChanged: (value) {
             if (value != null && value != controller.gameMode) {
