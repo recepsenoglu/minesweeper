@@ -4,19 +4,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../utils/game_colors.dart';
+import '../../utils/game_sizes.dart';
 
 class MiniatureMinefield extends StatefulWidget {
-  const MiniatureMinefield({
-    super.key,
-  });
+  const MiniatureMinefield({super.key});
 
   @override
   State<MiniatureMinefield> createState() => _MiniatureMinefieldState();
 }
 
 class _MiniatureMinefieldState extends State<MiniatureMinefield> {
+  Timer? timer;
+
   void startTimer() {
-    Timer.periodic(const Duration(milliseconds: 1500), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 1500), (timer) {
       if (mounted) {
         setState(() {});
       } else {
@@ -25,10 +26,20 @@ class _MiniatureMinefieldState extends State<MiniatureMinefield> {
     });
   }
 
+  void stopTimer() {
+    timer?.cancel();
+  }
+
   @override
   void initState() {
-    startTimer();
     super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    stopTimer();
   }
 
   @override
@@ -41,7 +52,7 @@ class _MiniatureMinefieldState extends State<MiniatureMinefield> {
     ];
 
     return SizedBox(
-      height: 172,
+      height: GameSizes.getWidth(0.5),
       child: Center(
         child: GridView.builder(
           shrinkWrap: true,
@@ -71,7 +82,7 @@ class _MiniatureMinefieldState extends State<MiniatureMinefield> {
                             : GameColors.tileLight,
               ),
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(8),
+              padding: GameSizes.getPadding(0.02),
               child: mineCell
                   ? CircleAvatar(
                       backgroundColor: GameColors.darken(mineColor!),
