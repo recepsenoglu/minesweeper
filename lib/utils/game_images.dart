@@ -6,7 +6,7 @@ enum Images {
   loseScreen,
   winScreen,
   homeScreenBg,
-  shovel,
+  pickaxe,
 }
 
 extension ImagesExtension on Images {

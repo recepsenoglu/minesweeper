@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../utils/game_colors.dart';
-import '../../utils/game_sizes.dart';
+import '../../../utils/game_colors.dart';
+import '../../../utils/game_sizes.dart';
 
 class MiniatureMinefield extends StatefulWidget {
   const MiniatureMinefield({super.key});
