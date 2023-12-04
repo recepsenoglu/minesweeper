@@ -13,9 +13,10 @@ class GameAudioPlayer {
     _player.play();
   }
 
-  static void resetPlayer() {
+  static void resetPlayer(bool soundOn) {
     _player.dispose();
     _player = AudioPlayer();
+    _player.setVolume(soundOn ? 1 : 0);
   }
 
   static void pause() {

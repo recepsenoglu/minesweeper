@@ -18,7 +18,7 @@ class PlayAgainButton extends StatelessWidget {
       onPressed: () {
         Navigator.pop(context);
         controller.createNewGame();
-        GameAudioPlayer.resetPlayer();
+        GameAudioPlayer.resetPlayer(controller.volumeOn);
       },
       icon: Icons.refresh,
       textColor: Colors.white,
