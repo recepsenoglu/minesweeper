@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/utils/game_sizes.dart';
+import 'package:minesweeper/utils/exports.dart';
 
 import '../controller/game_controller.dart';
-import '../utils/game_colors.dart';
-import '../utils/game_images.dart';
 import '../view/home_view/home_view.dart';
 import 'play_again_button.dart';
 
@@ -103,19 +101,35 @@ class GamePopupScreen {
   }
 
   static void exitGame(BuildContext context, GameController gameController) {
-    const String title = "Exit game?";
-    const String strCancel = "Cancel";
-    const String strExit = "Exit";
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(title),
+        title: Text(
+          GameStrings.exitGame,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: GameSizes.getWidth(0.05),
+          ),
+        ),
+        content: Text(
+          GameStrings.exitGameDescription,
+          style: TextStyle(
+            fontSize: GameSizes.getWidth(0.04),
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text(strCancel),
+            child: Text(
+              GameStrings.cancel,
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: GameSizes.getWidth(0.04),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () {
@@ -126,11 +140,12 @@ class GamePopupScreen {
                   MaterialPageRoute(builder: (context) => const HomeView()),
                   (route) => false);
             },
-            child: const Text(
-              strExit,
+            child: Text(
+              GameStrings.exit,
               style: TextStyle(
-                color: Colors.red,
+                color: Colors.red.shade700,
                 fontWeight: FontWeight.bold,
+                fontSize: GameSizes.getWidth(0.04),
               ),
             ),
           ),

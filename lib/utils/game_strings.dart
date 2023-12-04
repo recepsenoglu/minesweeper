@@ -14,10 +14,15 @@ class GameStrings {
 
   // Game
   static const String skip = 'Skip';
-  static const String exit = 'Exit';
   static const String playAgain = 'Play Again';
   static const String tryAgain = 'Try Again';
+
+  // Popup
   static const String win = 'You Win!';
   static const String lose = 'You Lose!';
-  static const String bestTime = 'Best Time';
+  static const String exitGame = "Exit Game";
+  static const String exitGameDescription =
+      "Are you sure you want to exit the game? You will lose your progress.";
+  static const String cancel = "Cancel";
+  static const String exit = "Exit";
 }
