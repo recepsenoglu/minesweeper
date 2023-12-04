@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../utils/game_sizes.dart';
 
 import '../../controller/game_controller.dart';
 import '../../helper/shared_helper.dart';
 import '../../model/tile_model.dart';
-import '../../utils/game_colors.dart';
-import '../../utils/game_images.dart';
+import '../../utils/exports.dart';
 import '../../widgets/game_popup_screen.dart';
 
 class MineField extends StatelessWidget {
@@ -30,8 +28,8 @@ class MineField extends StatelessWidget {
             if (tile.visible == false || tile.hasFlag) {
               return Grass(
                 tile: tile,
-                parentContext: context,
                 gameController: gameController,
+                parentContext: context,
               );
             } else {
               if (tile.hasMine) return Mine(index: index, tile: tile);
@@ -45,14 +43,15 @@ class MineField extends StatelessWidget {
 
 class Grass extends StatelessWidget {
   final Tile tile;
-  final BuildContext parentContext;
   final GameController gameController;
+  final BuildContext parentContext;
 
-  const Grass(
-      {super.key,
-      required this.tile,
-      required this.parentContext,
-      required this.gameController});
+  const Grass({
+    super.key,
+    required this.tile,
+    required this.gameController,
+    required this.parentContext,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,21 +80,12 @@ class Grass extends StatelessWidget {
                 }
               }
 
-              if (context.mounted) {
-                GamePopupScreen.gameOver(
-                  context,
-                  win: userWon,
-                  bestTime: bestTime,
-                  controller: gameController,
-                );
-              } else {
-                GamePopupScreen.gameOver(
-                  parentContext,
-                  win: userWon,
-                  bestTime: bestTime,
-                  controller: gameController,
-                );
-              }
+              GamePopupScreen.gameOver(
+                parentContext,
+                win: userWon,
+                bestTime: bestTime,
+                controller: gameController,
+              );
             }
           }
         },

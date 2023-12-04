@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
-import 'controller/game_controller.dart';
-import 'utils/game_sizes.dart';
-import 'view/home_view/home_view.dart';
+import 'utils/exports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(ChangeNotifierProvider<GameController>(
-    create: (context) => GameController(),
-    child: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,9 +18,11 @@ class MyApp extends StatelessWidget {
     GameSizes.init(context);
     return MaterialApp(
       title: 'Minesweeper',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true),
-      home: const HomeView(),
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: GameRoutes.generateRoute,
+      initialRoute: GameRoutes.initialRoute,
+      key: GameRoutes.navigatorKey,
     );
   }
 }

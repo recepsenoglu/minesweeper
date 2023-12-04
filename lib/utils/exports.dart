@@ -5,3 +5,4 @@ export 'game_sizes.dart';
 export 'game_strings.dart';
 export 'game_sounds.dart';
 export 'game_consts.dart';
+export 'game_routes.dart';

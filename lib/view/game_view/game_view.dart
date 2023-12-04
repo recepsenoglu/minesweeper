@@ -39,25 +39,27 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    GameController gameController =
-        Provider.of<GameController>(context, listen: true);
-
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          const GameTopBar(),
-          Expanded(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                MineField(gameController: gameController),
-                SkipButton(gameController: gameController),
-              ],
-            ),
+    return ChangeNotifierProvider<GameController>(
+      create: (_) => GameController(),
+      child: Consumer<GameController>(builder: (context, gameController, _) {
+        return Scaffold(
+          backgroundColor: Colors.black,
+          body: Column(
+            children: [
+              const GameTopBar(),
+              Expanded(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    MineField(gameController: gameController),
+                    SkipButton(gameController: gameController),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      }),
     );
   }
 }
