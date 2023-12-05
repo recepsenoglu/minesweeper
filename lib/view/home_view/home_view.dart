@@ -44,11 +44,12 @@ class GameTitle extends StatelessWidget {
         child: Text(
           GameStrings.appName.toUpperCase(),
           style: TextStyle(
-            letterSpacing: 12,
+            letterSpacing: 4,
             color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: GameSizes.getWidth(0.09),
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontWeight: FontWeight.w600,
+            backgroundColor: Colors.black,
+            fontSize: GameSizes.getWidth(0.1),
+            fontFamily: GoogleFonts.pressStart2p().fontFamily,
           ),
         ),
       ),
