@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:minesweeper/utils/game_sizes.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/game_controller.dart';
@@ -7,8 +6,7 @@ import '../../utils/extensions.dart';
 import '../../utils/game_colors.dart';
 import '../../utils/game_consts.dart';
 import '../../utils/game_images.dart';
-import '../../widgets/game_popup_screen.dart';
-import '../home_view/home_view.dart';
+import '../../utils/game_sizes.dart';
 
 class GameTopBar extends StatelessWidget {
   const GameTopBar({super.key});
@@ -40,18 +38,11 @@ class GameTopBar extends StatelessWidget {
               iconSize: GameSizes.getWidth(0.075),
             ),
             IconButton(
-              onPressed: () => controller.gameHasStarted
-                  ? GamePopupScreen.exitGame(context, controller)
-                  : Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeView(),
-                      ),
-                      (route) => false),
-              padding: EdgeInsets.zero,
-              visualDensity: VisualDensity.compact,
+              onPressed: () => controller.exitGame(context),
               icon: const Icon(Icons.close, color: Colors.white),
+              visualDensity: VisualDensity.compact,
               iconSize: GameSizes.getWidth(0.07),
+              padding: EdgeInsets.zero,
             ),
           ],
         ),
@@ -153,7 +144,7 @@ class DifficultySettings extends StatelessWidget {
               ),
             );
           }).toList(),
-          style:  TextStyle(
+          style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w400,
             fontSize: GameSizes.getWidth(0.03),

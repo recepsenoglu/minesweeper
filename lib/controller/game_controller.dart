@@ -8,6 +8,8 @@ import '../helper/shared_helper.dart';
 import '../model/tile_model.dart';
 import '../utils/game_consts.dart';
 import '../utils/game_sounds.dart';
+import '../view/home_view/home_view.dart';
+import '../widgets/game_popup_screen.dart';
 
 class GameController extends ChangeNotifier {
   late GameAudioPlayer _audioPlayer;
@@ -202,6 +204,20 @@ class GameController extends ChangeNotifier {
     _timeElapsed = 0;
     GameAudioPlayer.playable = true;
     notifyListeners();
+  }
+
+  /// Exit game function
+  void exitGame(BuildContext context) {
+    if (isMineAnimationOn) {
+      minesAnimation = false;
+    } else if (gameHasStarted) {
+      GamePopupScreen.exitGame(context, this);
+    } else {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeView()),
+          (route) => false);
+    }
   }
 
   /// Win game function

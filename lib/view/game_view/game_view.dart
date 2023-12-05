@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,21 +43,28 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
     return ChangeNotifierProvider<GameController>(
       create: (_) => GameController(),
       child: Consumer<GameController>(builder: (context, gameController, _) {
-        return Scaffold(
-          backgroundColor: Colors.black,
-          body: Column(
-            children: [
-              const GameTopBar(),
-              Expanded(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    MineField(gameController: gameController),
-                    SkipButton(gameController: gameController),
-                  ],
+        return PopScope(
+          canPop: !gameController.gameHasStarted,
+          onPopInvoked: (popped) {
+            debugPrint('GameView: PopScope: onPopInvoked: popped: $popped');
+            gameController.exitGame(context);
+          },
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            body: Column(
+              children: [
+                const GameTopBar(),
+                Expanded(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      MineField(gameController: gameController),
+                      SkipButton(gameController: gameController),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }),
