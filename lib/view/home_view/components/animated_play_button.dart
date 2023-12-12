@@ -116,7 +116,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton> {
               elevation: 20,
               width: GameSizes.getWidth(0.38),
               height: GameSizes.getWidth(0.32),
-              padding: EdgeInsets.zero,
+              padding: GameSizes.getPadding(0.025),
               color: Colors.grey.shade200,
               textColor: Colors.white,
               child: AnimatedSize(
