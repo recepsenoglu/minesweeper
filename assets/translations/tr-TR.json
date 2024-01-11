@@ -12,5 +12,16 @@
     "version": "Versiyon {}",
     "moreGames": "Daha fazla oyun",
     "developerWebsite": "Geliştirici web sitesi",
-    "privacyPolicy": "Gizlilik Politikası"
+    "privacyPolicy": "Gizlilik Politikası",
+
+    "easy": "Kolay",
+    "medium": "Orta",
+    "hard": "Zor",
+    "gamesStarted": "Başlatılan Oyunlar",
+    "gamesWon": "Kazanılan Oyunlar",
+    "winRate": "Kazanma Oranı",
+    "bestTime": "En iyi süre",
+    "averageTime": "Ortalama süre",
+
+    "statisticsError": "İstatistikler yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin."
 }

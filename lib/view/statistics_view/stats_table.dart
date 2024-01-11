@@ -1,55 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../helper/shared_helper.dart';
+import '../../mixins/statistics_mixin.dart';
 import '../../utils/game_colors.dart';
 import '../../utils/game_consts.dart';
 import '../../utils/game_sizes.dart';
 
-class StatsTable extends StatelessWidget {
+class StatsTable extends StatelessWidget with StatisticsMixin {
   final GameMode gameMode;
   const StatsTable({super.key, required this.gameMode});
 
-  String timeFormatter(int? time) {
-    if (time == null) {
-      return "--:--";
-    }
-    Duration duration = Duration(seconds: time);
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds - minutes * 60;
-    return "${(minutes > 9 ? "" : "0")}$minutes:${(seconds > 9 ? "" : "0")}$seconds";
-  }
-
-  Future<Map<String, dynamic>> getStatistic(GameMode gameMode) async {
-    final SharedHelper sharedHelper = await SharedHelper.init();
-
-    int? gamesStarted = await sharedHelper.getGamesStarted(gameMode);
-    int? gamesWon = await sharedHelper.getGamesWon(gameMode);
-    int? bestTime = await sharedHelper.getBestTime(gameMode);
-    int? averageTime = await sharedHelper.getAverageTime(gameMode);
-
-    String? winRate;
-
-    if (gamesStarted != null) {
-      if (gamesWon != null) {
-        winRate = "${(gamesWon * 100 / gamesStarted).round()}%";
-      } else {
-        winRate = "0%";
-      }
-    }
-
-    return {
-      "gamesStarted": gamesStarted,
-      "gamesWon": gamesWon,
-      "winRate": winRate,
-      "bestTime": timeFormatter(bestTime),
-      "averageTime": timeFormatter(averageTime),
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
-    const String errorStr =
-        "There has been an error getting statistics. Please try again later.";
     return FutureBuilder(
         future: getStatistic(gameMode),
         builder: (context, snapshot) {
@@ -57,7 +19,7 @@ class StatsTable extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (!snapshot.hasData) {
-            return const Center(child: Text(errorStr));
+            return Center(child: Text("statisticsError".tr()));
           }
 
           Map<String, dynamic> stats = snapshot.data!;
@@ -68,27 +30,27 @@ class StatsTable extends StatelessWidget {
               children: [
                 StatWidget(
                   iconData: Icons.grid_on_rounded,
-                  statName: "Games Started",
+                  statName: "gamesStarted".tr(),
                   statValue: stats['gamesStarted'],
                 ),
                 StatWidget(
                   iconData: Icons.workspace_premium_outlined,
-                  statName: "Games Won",
+                  statName: "gamesWon".tr(),
                   statValue: stats['gamesWon'],
                 ),
                 StatWidget(
                   iconData: Icons.flag_outlined,
-                  statName: "Win Rate",
+                  statName: "winRate".tr(),
                   statValue: stats['winRate'],
                 ),
                 StatWidget(
                   iconData: Icons.timer_outlined,
-                  statName: "Best Time",
+                  statName: "bestTime".tr(),
                   statValue: stats['bestTime'],
                 ),
                 StatWidget(
                   iconData: Icons.access_time_sharp,
-                  statName: "Average Time",
+                  statName: "averageTime".tr(),
                   statValue: stats['averageTime'],
                 ),
               ],
@@ -127,7 +89,7 @@ class StatWidget extends StatelessWidget {
             children: [
               Icon(
                 iconData,
-                size: GameSizes.getWidth(0.1),
+                size: GameSizes.getWidth(0.08),
                 color: Colors.black,
               ),
               SizedBox(height: GameSizes.getHeight(0.015)),
@@ -135,7 +97,7 @@ class StatWidget extends StatelessWidget {
                 statName,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: GameSizes.getWidth(0.045),
+                  fontSize: GameSizes.getWidth(0.042),
                 ),
               ),
             ],
@@ -144,7 +106,7 @@ class StatWidget extends StatelessWidget {
             statValue == null ? "-" : statValue.toString(),
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              fontSize: GameSizes.getWidth(0.05),
+              fontSize: GameSizes.getWidth(0.048),
             ),
           ),
         ],

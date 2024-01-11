@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/game_colors.dart';
@@ -18,9 +19,8 @@ class StatisticsView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          toolbarHeight: GameSizes.getHeight(0.08),
           backgroundColor: GameColors.darkBlue,
-          title: const Text(GameStrings.gameStats),
+          title: Text("statistics".tr()),
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -30,8 +30,6 @@ class StatisticsView extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            iconSize: GameSizes.getWidth(0.06),
-            splashRadius: GameSizes.getWidth(0.06),
             icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
@@ -41,17 +39,16 @@ class StatisticsView extends StatelessWidget {
             indicatorColor: Colors.white,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 2,
-            tabs: const [
-              Tab(text: GameStrings.easy),
-              Tab(text: GameStrings.medium),
-              Tab(text: GameStrings.hard),
+            tabs: [
+              Tab(text: "easy".tr()),
+              Tab(text: "medium".tr()),
+              Tab(text: "hard".tr()),
             ],
-            // indicator: const BoxDecoration(),
             labelStyle: TextStyle(
               letterSpacing: 2,
               color: Colors.white,
               fontWeight: FontWeight.w800,
-              fontSize: GameSizes.getWidth(0.042),
+              fontSize: GameSizes.getWidth(0.04),
             ),
             unselectedLabelStyle: const TextStyle(color: Colors.white60),
           ),
