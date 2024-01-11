@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:minesweeper/view/home_view/components/settings_button.dart';
 
 import '../../utils/exports.dart';
 import 'components/animated_play_button.dart';
@@ -23,7 +24,14 @@ class HomeView extends StatelessWidget {
             children: [
               const AnimatedPlayButton(),
               SizedBox(height: GameSizes.getHeight(0.04)),
-              const StatisticsButton(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const StatisticsButton(),
+                  SizedBox(width: GameSizes.getWidth(0.05)),
+                  const SettingsButton(),
+                ],
+              ),
             ],
           ),
           Image.asset(Images.homeScreenBg.toPath),

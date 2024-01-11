@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/game_sizes.dart';
-import '../../../utils/game_strings.dart';
 import '../../../widgets/custom_button.dart';
-import '../../statistics_view/statistics_view.dart';
+import '../../settings_view/settings_view.dart';
 
-class StatisticsButton extends StatelessWidget {
-  const StatisticsButton({super.key});
+class SettingsButton extends StatelessWidget {
+  const SettingsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +14,13 @@ class StatisticsButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const StatisticsView(),
+              builder: (context) => const SettingsView(),
             ));
       },
       color: const Color(0xFFE0E0E0),
       elevation: 6,
-      icon: Icons.bar_chart,
-      text: GameStrings.statistics,
+      icon: Icons.settings,
+      text: "Settings",
       textColor: Colors.black,
       width: GameSizes.getWidth(0.35),
       textSize: GameSizes.getWidth(0.045),

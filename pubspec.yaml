@@ -47,6 +47,9 @@ dependencies:
 
   # storage
   shared_preferences: ^2.0.18
+  url_launcher: ^6.2.3
+  in_app_review: ^2.0.8
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:

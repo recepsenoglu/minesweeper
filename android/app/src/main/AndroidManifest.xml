@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.recepsenoglu.minesweeper">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
+    <application
         android:label="Minesweeper"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"

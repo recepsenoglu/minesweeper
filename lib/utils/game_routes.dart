@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minesweeper/view/about_view/about_view.dart';
 import 'package:minesweeper/view/home_view/home_view.dart';
 import 'package:minesweeper/view/statistics_view/statistics_view.dart';
 
@@ -8,6 +9,7 @@ class GameRoutes {
   static const String initialRoute = '/';
   static const String gameView = '/game_view';
   static const String statisticsView = '/statistics_view';
+  static const String aboutView = '/about_view';
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -19,6 +21,10 @@ class GameRoutes {
 
       case statisticsView:
         return MaterialPageRoute(builder: (_) => const StatisticsView());
+
+      case aboutView:
+        return MaterialPageRoute(builder: (_) => const AboutView());
+
       default:
         return _errorRoute();
     }
