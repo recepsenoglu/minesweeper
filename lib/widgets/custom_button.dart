@@ -73,22 +73,24 @@ class CustomButton extends StatelessWidget {
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else if (icon != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: iconSize ?? GameSizes.getWidth(0.1),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: textSize ?? GameSizes.getWidth(0.05),
-              fontWeight: FontWeight.bold,
+      return FittedBox(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: iconSize ?? GameSizes.getWidth(0.1),
             ),
-          ),
-        ],
+            const SizedBox(width: 10),
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: textSize ?? GameSizes.getWidth(0.05),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       );
     } else if (child != null) {
       return child!;

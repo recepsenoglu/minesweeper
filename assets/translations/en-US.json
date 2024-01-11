@@ -1,11 +1,13 @@
 {
+    "minesweeper": "Minesweeper",
+    "statistics": "Statistics",
     "settings": "Settings",
+    
     "about": "About",
     "howToPlay": "How to play",
     "rateUs": "Rate us",
     "share": "Share",
 
-    "minesweeper": "Minesweeper",
     "version": "Version {}",
     "moreGames": "More games",
     "developerWebsite": "Developer's website",
