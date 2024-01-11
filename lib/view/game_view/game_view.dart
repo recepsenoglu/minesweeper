@@ -46,7 +46,6 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
         return PopScope(
           canPop: !gameController.gameHasStarted,
           onPopInvoked: (popped) {
-            debugPrint('GameView: PopScope: onPopInvoked: popped: $popped');
             gameController.exitGame(context);
           },
           child: Scaffold(

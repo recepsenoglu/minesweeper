@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../utils/game_colors.dart';
 import '../../utils/game_consts.dart';
 import '../../utils/game_sizes.dart';
-import '../../utils/game_strings.dart';
 import 'stats_table.dart';
 
 class StatisticsView extends StatelessWidget {

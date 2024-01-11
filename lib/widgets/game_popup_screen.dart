@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:minesweeper/utils/exports.dart';
 
@@ -35,8 +36,9 @@ class GamePopupScreen {
             Container(
               height: GameSizes.getWidth(0.8),
               decoration: BoxDecoration(
-                  color: GameColors.popupBackground,
-                  borderRadius: GameSizes.getRadius(16)),
+                color: GameColors.popupBackground,
+                borderRadius: GameSizes.getRadius(16),
+              ),
               child: Stack(
                 children: [
                   Positioned(
@@ -93,7 +95,7 @@ class GamePopupScreen {
               ),
             ),
             SizedBox(height: GameSizes.getHeight(0.02)),
-            PlayAgainButton(controller: controller, userWon: win),
+            PlayAgainButton(controller: controller, win: win),
           ],
         ),
       ),
@@ -105,14 +107,14 @@ class GamePopupScreen {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          GameStrings.exitGame,
+          "exitGame".tr(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: GameSizes.getWidth(0.05),
           ),
         ),
         content: Text(
-          GameStrings.exitGameDescription,
+          "exitGameMessage".tr(),
           style: TextStyle(
             fontSize: GameSizes.getWidth(0.04),
           ),
@@ -123,7 +125,7 @@ class GamePopupScreen {
               Navigator.pop(context);
             },
             child: Text(
-              GameStrings.cancel,
+              "no".tr(),
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
@@ -141,7 +143,7 @@ class GamePopupScreen {
                   (route) => false);
             },
             child: Text(
-              GameStrings.exit,
+              "yes".tr(),
               style: TextStyle(
                 color: Colors.red.shade700,
                 fontWeight: FontWeight.bold,

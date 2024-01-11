@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -137,7 +138,7 @@ class DifficultySettings extends StatelessWidget {
               value: value,
               child: FittedBox(
                 child: Text(
-                  value.name.capitalizeFirst(),
+                  value.name.tr().capitalizeFirst(),
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

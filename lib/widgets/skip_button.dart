@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../controller/game_controller.dart';
@@ -18,9 +19,10 @@ class SkipButton extends StatelessWidget {
         onPressed: () {
           gameController.minesAnimation = false;
         },
-        text: GameStrings.skip,
+        text: "skip".tr(),
         icon: Icons.fast_forward_sharp,
         width: GameSizes.getWidth(0.4),
+        iconSize: GameSizes.getWidth(0.08),
       ),
     );
   }

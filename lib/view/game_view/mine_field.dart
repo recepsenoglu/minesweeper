@@ -57,37 +57,37 @@ class Grass extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () async {
-          if (!tile.hasFlag) {
-            bool? userWon = await gameController.clickTile(tile);
+          if (tile.hasFlag) return;
 
-            if (userWon != null) {
+          await gameController.clickTile(tile)?.then((win) async {
+            if (win != null) {
               final sharedHelper = await SharedHelper.init();
-
-              int? bestTime =
-                  await sharedHelper.getBestTime(gameController.gameMode);
-
-              if (userWon) {
+              int bestTime =
+                  await sharedHelper.getBestTime(gameController.gameMode) ??
+                      999;
+              if (win) {
                 await sharedHelper.updateAverageTime(
                     gameController.gameMode, gameController.timeElapsed);
-
                 await sharedHelper.increaseGamesWon(gameController.gameMode);
-
-                if (gameController.timeElapsed < (bestTime ?? 999)) {
+                if (gameController.timeElapsed < bestTime) {
                   bestTime = gameController.timeElapsed;
-
                   await sharedHelper.setBestTime(
                       gameController.gameMode, bestTime);
                 }
               }
-
+              return (win, bestTime);
+            }
+            return null;
+          }).then((value) {
+            if (value?.$1 != null) {
               GamePopupScreen.gameOver(
                 parentContext,
-                win: userWon,
-                bestTime: bestTime,
                 controller: gameController,
+                bestTime: value!.$2,
+                win: value.$1,
               );
             }
-          }
+          });
         },
         onLongPress: () => gameController.placeFlag(tile),
         child: Container(

@@ -22,6 +22,13 @@
     "winRate": "Win Rate",
     "bestTime": "Best Time",
     "averageTime": "Average Time",
+    "statisticsError": "There has been an error getting statistics. Please try again later.",
 
-    "statisticsError": "There has been an error getting statistics. Please try again later."
+    "exitGame": "Exit Game",
+    "exitGameMessage": "Are you sure you want to exit the game? You will lose your current progress.",
+    "yes": "Yes",
+    "no": "No",
+    "skip": "Skip",
+    "playAgain": "Play Again",
+    "tryAgain": "Try Again"
 }

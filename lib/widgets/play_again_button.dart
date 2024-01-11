@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../controller/game_controller.dart';
@@ -7,14 +8,14 @@ import 'custom_button.dart';
 
 class PlayAgainButton extends StatelessWidget {
   final GameController controller;
-  final bool userWon;
+  final bool win;
   const PlayAgainButton(
-      {super.key, required this.controller, required this.userWon});
+      {super.key, required this.controller, required this.win});
 
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      text: userWon ? GameStrings.playAgain : GameStrings.tryAgain,
+      text: win ? "playAgain".tr() : "tryAgain".tr(),
       onPressed: () {
         Navigator.pop(context);
         controller.createNewGame();
@@ -25,6 +26,7 @@ class PlayAgainButton extends StatelessWidget {
       iconSize: GameSizes.getWidth(0.08),
       color: GameColors.popupPlayAgainButton,
       padding: GameSizes.getSymmetricPadding(0.05, 0.015),
+      borderColor: Colors.white,
     );
   }
 }
