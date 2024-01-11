@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.2.3
   in_app_review: ^2.0.8
   share_plus: ^7.2.1
+  easy_localization: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
   assets:
     - assets/images/
     - assets/audio/
+    - assets/translations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

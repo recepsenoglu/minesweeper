@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:minesweeper/helper/localization_manager.dart';
+
 import 'utils/exports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: LocalizationManager.supportedLocales,
+      fallbackLocale: LocalizationManager.fallbackLocale,
+      path: LocalizationManager.path,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +34,9 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: GameRoutes.generateRoute,
       initialRoute: GameRoutes.initialRoute,
       key: GameRoutes.navigatorKey,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

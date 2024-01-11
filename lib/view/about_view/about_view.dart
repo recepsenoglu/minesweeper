@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../mixins/url_launcher_mixin.dart';
@@ -31,7 +32,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text('About'),
+        title: Text('about'.tr()),
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontSize: GameSizes.getWidth(0.05),
@@ -60,7 +61,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Minesweeper',
+                        'minesweeper'.tr(),
                         style: TextStyle(
                           fontSize: GameSizes.getWidth(0.06),
                           fontWeight: FontWeight.bold,
@@ -68,7 +69,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                       ),
                       SizedBox(height: GameSizes.getHeight(0.005)),
                       Text(
-                        'Version 1.0.2',
+                        'version'.tr(args: ['1.0.2']),
                         style: TextStyle(
                           fontSize: GameSizes.getWidth(0.04),
                         ),
@@ -95,7 +96,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
             OptionGroup(
               options: [
                 OptionWidget(
-                  title: 'More Games',
+                  title: 'moreGames'.tr(),
                   iconData: Icons.apps,
                   iconColor: Colors.red,
                   loading: loading,
@@ -105,7 +106,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                   },
                 ),
                 OptionWidget(
-                  title: 'Developer\'s Website',
+                  title: 'developerWebsite'.tr(),
                   iconData: Icons.web,
                   iconColor: Colors.purple,
                   loading: loading,
@@ -118,7 +119,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
             OptionGroup(
               options: [
                 OptionWidget(
-                  title: 'Privacy Policy',
+                  title: 'privacyPolicy'.tr(),
                   iconData: Icons.privacy_tip,
                   iconColor: Colors.blue,
                   loading: loading,

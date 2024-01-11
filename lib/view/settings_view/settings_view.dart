@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:minesweeper/helper/localization_manager.dart';
 
 import '../../mixins/app_review_mixin.dart';
 import '../../mixins/share_mixin.dart';
@@ -14,8 +16,8 @@ class SettingsView extends StatefulWidget {
   State<SettingsView> createState() => _SettingsViewState();
 }
 
-
-class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareMixin {
+class _SettingsViewState extends State<SettingsView>
+    with AppReviewMixin, ShareMixin {
   @override
   void initState() {
     super.initState();
@@ -31,7 +33,7 @@ class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareM
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text('Settings'),
+        title: Text('settings'.tr()),
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontSize: GameSizes.getWidth(0.05),
@@ -45,16 +47,48 @@ class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareM
             OptionGroup(
               options: [
                 OptionWidget(
-                  title: 'Language',
+                  title: LocalizationManager.currentLanguageName,
                   iconData: Icons.language,
                   iconColor: Colors.blue,
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Select Language'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: const Text('English'),
+                              onTap: () {
+                                LocalizationManager().changeLocale(
+                                  context,
+                                  const Locale('en', 'US'),
+                                );
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ListTile(
+                              title: const Text('Türkçe'),
+                              onTap: () {
+                                LocalizationManager().changeLocale(
+                                  context,
+                                  const Locale('tr', 'TR'),
+                                );
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
             OptionGroup(options: [
               OptionWidget(
-                title: 'About',
+                title: 'about'.tr(),
                 iconData: Icons.info,
                 iconColor: Colors.grey,
                 onTap: () {
@@ -66,7 +100,7 @@ class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareM
                 },
               ),
               OptionWidget(
-                title: 'How to Play',
+                title: 'howToPlay'.tr(),
                 iconData: Icons.play_arrow,
                 iconColor: Colors.green,
                 onTap: () {},
@@ -75,7 +109,7 @@ class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareM
             OptionGroup(
               options: [
                 OptionWidget(
-                  title: 'Rate Us',
+                  title: 'rateUs'.tr(),
                   iconData: Icons.star,
                   iconColor: Colors.yellow,
                   loading: reviewLoading,
@@ -84,7 +118,7 @@ class _SettingsViewState extends State<SettingsView> with AppReviewMixin, ShareM
                   },
                 ),
                 OptionWidget(
-                  title: 'Share',
+                  title: 'share'.tr(),
                   iconData: Icons.share,
                   iconColor: Colors.orange,
                   onTap: () async {
