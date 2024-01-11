@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:minesweeper/helper/localization_manager.dart';
+import 'package:minesweeper/view/how_to_play_view/how_to_play_view.dart';
 
 import '../../mixins/app_review_mixin.dart';
 import '../../mixins/share_mixin.dart';
@@ -88,26 +89,32 @@ class _SettingsViewState extends State<SettingsView>
             ),
             OptionGroup(options: [
               OptionWidget(
-                title: 'about'.tr(),
-                iconData: Icons.info,
-                iconColor: Colors.grey,
+                title: 'howToPlay'.tr(),
+                iconData: Icons.play_arrow,
+                iconColor: Colors.green,
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AboutView(),
+                        builder: (context) => const HowToPlayView(),
                       ));
                 },
-              ),
-              OptionWidget(
-                title: 'howToPlay'.tr(),
-                iconData: Icons.play_arrow,
-                iconColor: Colors.green,
-                onTap: () {},
               ),
             ]),
             OptionGroup(
               options: [
+                OptionWidget(
+                  title: 'about'.tr(),
+                  iconData: Icons.info,
+                  iconColor: Colors.grey,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutView(),
+                        ));
+                  },
+                ),
                 OptionWidget(
                   title: 'rateUs'.tr(),
                   iconData: Icons.star,

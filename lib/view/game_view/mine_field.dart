@@ -62,14 +62,13 @@ class Grass extends StatelessWidget {
           await gameController.clickTile(tile)?.then((win) async {
             if (win != null) {
               final sharedHelper = await SharedHelper.init();
-              int bestTime =
-                  await sharedHelper.getBestTime(gameController.gameMode) ??
-                      999;
+              int? bestTime =
+                  await sharedHelper.getBestTime(gameController.gameMode);
               if (win) {
                 await sharedHelper.updateAverageTime(
                     gameController.gameMode, gameController.timeElapsed);
                 await sharedHelper.increaseGamesWon(gameController.gameMode);
-                if (gameController.timeElapsed < bestTime) {
+                if (gameController.timeElapsed < (bestTime ?? 999)) {
                   bestTime = gameController.timeElapsed;
                   await sharedHelper.setBestTime(
                       gameController.gameMode, bestTime);

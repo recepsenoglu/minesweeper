@@ -13,6 +13,14 @@ class SharedHelper {
     return sharedHelper;
   }
 
+  Future<bool> getHowToPlayShown() async {
+    return _prefs.getBool("HowToPlay") ?? false;
+  }
+
+  Future<bool> setHowToPlayShown(bool value) async {
+    return _prefs.setBool("HowToPlay", value);
+  }
+
   Future<int?> getBestTime(GameMode gameMode) async {
     return _prefs.getInt("${gameMode.name}:BestTime");
   }

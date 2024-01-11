@@ -30,5 +30,11 @@
     "no": "Hayır",
     "skip": "Atla",
     "playAgain": "Yeniden oyna",
-    "tryAgain": "Tekrar dene"
+    "tryAgain": "Tekrar dene",
+
+    "howToPlay1": "Oyunu başlatmak için bir kareye dokunun.",
+    "howToPlay2": "Her kare, komşu mayınların sayısını gösterir.",
+    "howToPlay4": "Bir kareye uzun basarak bir bayrak yerleştirin.",
+    "howToPlay3": "Mayına dokunursanız oyun biter.",
+    "howToPlay5": "Mayın olmayan tüm kareleri açarsanız oyunu kazanırsınız."
 }

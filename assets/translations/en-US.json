@@ -30,5 +30,11 @@
     "no": "No",
     "skip": "Skip",
     "playAgain": "Play Again",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+
+    "howToPlay1": "Tap a square to reveal it.",
+    "howToPlay2": "A number indicates how many mines are adjacent to that square.",
+    "howToPlay4": "Long press a square to flag it.",
+    "howToPlay3": "If you reveal a mine, you lose the game.",
+    "howToPlay5": "Reveal all the squares that do not contain mines to win the game."
 }
