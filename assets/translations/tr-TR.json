@@ -2,11 +2,12 @@
     "minesweeper": "Mayın Tarlası",
     "statistics": "İstatistikler",
     "settings": "Ayarlar",
-    
+
     "about": "Hakkında",
     "howToPlay": "Nasıl oynanır",
     "rateUs": "Bizi değerlendirin",
     "share": "Paylaş",
+    "shareMessage": "Mayın Tarlası oyununu oynadım. Bu oyunu denemelisin! \n\n{}",
 
     "version": "Versiyon {}",
     "moreGames": "Daha fazla oyun",

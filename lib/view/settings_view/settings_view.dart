@@ -122,7 +122,9 @@ class _SettingsViewState extends State<SettingsView>
                   iconData: Icons.share,
                   iconColor: Colors.orange,
                   onTap: () async {
-                    await shareApp();
+                    await shareApp('shareMessage'.tr(args: [
+                      'https://play.google.com/store/apps/details?id=com.recepsenoglu.minesweeper'
+                    ]));
                   },
                 ),
               ],

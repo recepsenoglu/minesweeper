@@ -2,11 +2,12 @@
     "minesweeper": "Minesweeper",
     "statistics": "Statistics",
     "settings": "Settings",
-    
+
     "about": "About",
     "howToPlay": "How to play",
     "rateUs": "Rate us",
     "share": "Share",
+    "shareMessage": "I'm playing Minesweeper. It's a great game! You should try it too. \n\n{}",
 
     "version": "Version {}",
     "moreGames": "More games",

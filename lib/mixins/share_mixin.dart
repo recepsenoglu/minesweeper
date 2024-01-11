@@ -5,12 +5,10 @@ mixin ShareMixin<T extends StatefulWidget> on State<T> {
   bool shareLoading = false;
   void Function()? onStateChanged;
 
-  Future shareApp() async {
+  Future shareApp(String text) async {
     shareLoading = true;
     onStateChanged?.call();
-    await Share.share(
-      'Check out this awesome Minesweeper game! \n\n' 
-        'https://play.google.com/store/apps/details?id=com.recepsenoglu.minesweeper');
+    await Share.share(text);
     await Future.delayed(const Duration(seconds: 2));
     shareLoading = false;
     onStateChanged?.call();
