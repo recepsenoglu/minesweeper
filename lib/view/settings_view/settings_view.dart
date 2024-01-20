@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:minesweeper/helper/localization_manager.dart';
+import 'package:minesweeper/mixins/url_launcher_mixin.dart';
 import 'package:minesweeper/view/how_to_play_view/how_to_play_view.dart';
 
 import '../../mixins/app_review_mixin.dart';
@@ -18,11 +19,17 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView>
-    with AppReviewMixin, ShareMixin {
+    with AppReviewMixin, ShareMixin, UrlLauncherMixin {
   @override
   void initState() {
     super.initState();
-    onStateChanged = () {
+    shareOnStateChanged = () {
+      setState(() {});
+    };
+    reviewOnStateChanged = () {
+      setState(() {});
+    };
+    urlLauncherOnStateChanged = () {
       setState(() {});
     };
   }
@@ -128,10 +135,25 @@ class _SettingsViewState extends State<SettingsView>
                   title: 'share'.tr(),
                   iconData: Icons.share,
                   iconColor: Colors.orange,
+                  loading: shareLoading,
                   onTap: () async {
                     await shareApp('shareMessage'.tr(args: [
                       'https://play.google.com/store/apps/details?id=com.recepsenoglu.minesweeper'
                     ]));
+                  },
+                ),
+              ],
+            ),
+            OptionGroup(
+              options: [
+                OptionWidget(
+                  title: 'privacyPolicy'.tr(),
+                  iconData: Icons.privacy_tip,
+                  iconColor: Colors.blue,
+                  loading: urlLauncherLoading,
+                  onTap: () async {
+                    await launchURL(
+                        'https://www.freeprivacypolicy.com/live/30009f95-7d04-4c58-b126-9ebb2d2acac8');
                   },
                 ),
               ],

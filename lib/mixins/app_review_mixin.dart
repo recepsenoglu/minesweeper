@@ -3,15 +3,15 @@ import 'package:in_app_review/in_app_review.dart';
 
 mixin AppReviewMixin<T extends StatefulWidget> on State<T> {
   bool reviewLoading = false;
-  void Function()? onStateChanged;
+  void Function()? reviewOnStateChanged;
 
   final InAppReview inAppReview = InAppReview.instance;
 
   Future openStoreListing() async {
     reviewLoading = true;
-    onStateChanged?.call();
+    reviewOnStateChanged?.call();
     await inAppReview.openStoreListing();
     reviewLoading = false;
-    onStateChanged?.call();
+    reviewOnStateChanged?.call();
   }
 }

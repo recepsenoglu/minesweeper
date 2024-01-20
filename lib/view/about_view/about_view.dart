@@ -18,7 +18,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
   @override
   void initState() {
     super.initState();
-    onStateChanged = () {
+    urlLauncherOnStateChanged = () {
       if (mounted) {
         setState(() {});
       }
@@ -69,7 +69,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                       ),
                       SizedBox(height: GameSizes.getHeight(0.005)),
                       Text(
-                        'version'.tr(args: ['1.0.2']),
+                        'version'.tr(args: ['1.0.3']),
                         style: TextStyle(
                           fontSize: GameSizes.getWidth(0.04),
                         ),
@@ -99,7 +99,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                   title: 'moreGames'.tr(),
                   iconData: Icons.apps,
                   iconColor: Colors.red,
-                  loading: loading,
+                  loading: urlLauncherLoading,
                   onTap: () async {
                     await launchURL(
                         'https://play.google.com/store/apps/dev?id=7235038440743748997');
@@ -109,7 +109,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                   title: 'developerWebsite'.tr(),
                   iconData: Icons.web,
                   iconColor: Colors.purple,
-                  loading: loading,
+                  loading: urlLauncherLoading,
                   onTap: () async {
                     await launchURL('https://recepsenoglu.com/');
                   },
@@ -122,10 +122,10 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                   title: 'privacyPolicy'.tr(),
                   iconData: Icons.privacy_tip,
                   iconColor: Colors.blue,
-                  loading: loading,
+                  loading: urlLauncherLoading,
                   onTap: () async {
                     await launchURL(
-                        'https://www.freeprivacypolicy.com/live/28f2fc39-d654-4609-8310-e11119fea1a6');
+                        'https://www.freeprivacypolicy.com/live/30009f95-7d04-4c58-b126-9ebb2d2acac8');
                   },
                 ),
               ],
