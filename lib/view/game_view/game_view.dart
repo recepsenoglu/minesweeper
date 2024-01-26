@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,21 +47,23 @@ class _GameViewState extends State<GameView> with WidgetsBindingObserver {
           onPopInvoked: (popped) {
             gameController.exitGame(context);
           },
-          child: Scaffold(
-            backgroundColor: Colors.black,
-            body: Column(
-              children: [
-                const GameTopBar(),
-                Expanded(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      MineField(gameController: gameController),
-                      SkipButton(gameController: gameController),
-                    ],
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: Column(
+                children: [
+                  const GameTopBar(),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        MineField(gameController: gameController),
+                        SkipButton(gameController: gameController),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

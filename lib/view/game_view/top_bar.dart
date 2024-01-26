@@ -66,7 +66,7 @@ class Stopwatch extends StatelessWidget {
         ),
         SizedBox(width: GameSizes.getWidth(0.01)),
         Container(
-          width: GameSizes.getWidth(0.09),
+          width: GameSizes.getWidth(0.095),
           alignment: Alignment.centerLeft,
           child: Text(
             "0" * (3 - timeElapsed.toString().length) + timeElapsed.toString(),
@@ -149,7 +149,10 @@ class DifficultySettings extends StatelessWidget {
             );
           }).toList(),
           onChanged: (value) {
-            if (value != null && value != controller.gameMode) {
+            if (controller.isMineAnimationOn) {
+              controller.minesAnimation = false;
+            }
+            else if (value != null && value != controller.gameMode) {
               controller.gameMode = value;
             }
           },

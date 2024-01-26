@@ -62,7 +62,7 @@ class _SettingsViewState extends State<SettingsView>
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text('Select Language'),
+                        title: Text('selectLanguage'.tr()),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [

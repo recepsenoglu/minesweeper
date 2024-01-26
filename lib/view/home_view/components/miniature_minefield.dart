@@ -52,7 +52,7 @@ class _MiniatureMinefieldState extends State<MiniatureMinefield> {
     ];
 
     return SizedBox(
-      height: GameSizes.getWidth(0.5),
+      height: GameSizes.getWidth(0.6),
       child: Center(
         child: GridView.builder(
           shrinkWrap: true,
