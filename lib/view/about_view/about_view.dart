@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +71,7 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
                       ),
                       SizedBox(height: GameSizes.getHeight(0.005)),
                       Text(
-                        'version'.tr(args: ['1.0.3']),
+                        'version'.tr(args: ['1.0.4']),
                         style: TextStyle(
                           fontSize: GameSizes.getWidth(0.04),
                         ),
@@ -95,16 +97,17 @@ class _AboutViewState extends State<AboutView> with UrlLauncherMixin {
             SizedBox(height: GameSizes.getHeight(0.02)),
             OptionGroup(
               options: [
-                OptionWidget(
-                  title: 'moreGames'.tr(),
-                  iconData: Icons.apps,
-                  iconColor: Colors.red,
-                  loading: urlLauncherLoading,
-                  onTap: () async {
-                    await launchURL(
-                        'https://play.google.com/store/apps/dev?id=7235038440743748997');
-                  },
-                ),
+                if (Platform.isAndroid)
+                  OptionWidget(
+                    title: 'moreGames'.tr(),
+                    iconData: Icons.apps,
+                    iconColor: Colors.red,
+                    loading: urlLauncherLoading,
+                    onTap: () async {
+                      await launchURL(
+                          'https://play.google.com/store/apps/dev?id=7235038440743748997');
+                    },
+                  ),
                 OptionWidget(
                   title: 'developerWebsite'.tr(),
                   iconData: Icons.web,

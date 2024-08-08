@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:minesweeper/helper/localization_manager.dart';
@@ -122,26 +124,28 @@ class _SettingsViewState extends State<SettingsView>
                         ));
                   },
                 ),
-                OptionWidget(
-                  title: 'rateUs'.tr(),
-                  iconData: Icons.star,
-                  iconColor: Colors.yellow,
-                  loading: reviewLoading,
-                  onTap: () async {
-                    await openStoreListing();
-                  },
-                ),
-                OptionWidget(
-                  title: 'share'.tr(),
-                  iconData: Icons.share,
-                  iconColor: Colors.orange,
-                  loading: shareLoading,
-                  onTap: () async {
-                    await shareApp('shareMessage'.tr(args: [
-                      'https://play.google.com/store/apps/details?id=com.recepsenoglu.minesweeper'
-                    ]));
-                  },
-                ),
+                if (Platform.isAndroid) ...[
+                  OptionWidget(
+                    title: 'rateUs'.tr(),
+                    iconData: Icons.star,
+                    iconColor: Colors.yellow,
+                    loading: reviewLoading,
+                    onTap: () async {
+                      await openStoreListing();
+                    },
+                  ),
+                  OptionWidget(
+                    title: 'share'.tr(),
+                    iconData: Icons.share,
+                    iconColor: Colors.orange,
+                    loading: shareLoading,
+                    onTap: () async {
+                      await shareApp('shareMessage'.tr(args: [
+                        'https://play.google.com/store/apps/details?id=com.recepsenoglu.minesweeper'
+                      ]));
+                    },
+                  ),
+                ],
               ],
             ),
             OptionGroup(
